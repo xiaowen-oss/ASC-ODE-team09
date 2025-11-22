@@ -34,27 +34,48 @@ public:
 };
 
 
-int main()
+int main(int argc, char* argv[])
 {
-  double tend = 4*M_PI;
-  int steps = 100;
-  double tau = tend/steps;
+    if (argc != 2) return 1;
 
-  Vector<> y = { 1, 0 };  // initializer list
-  auto rhs = std::make_shared<MassSpring>(1.0, 1.0);
-  
-  ExplicitEuler stepper(rhs);
-  // ImplicitEuler stepper(rhs);
+    int steps = std::stoi(argv[1]);
+    double T = 4.0 * M_PI;
+    double tau = T / steps;
 
-  std::ofstream outfile ("output_test_ode.txt");
-  std::cout << 0.0 << "  " << y(0) << " " << y(1) << std::endl;
-  outfile << 0.0 << "  " << y(0) << " " << y(1) << std::endl;
+    Vector<> y_exp = {1.0, 0.0};
+    Vector<> y_imp = {1.0, 0.0};
+    Vector<> y_impv = {1.0, 0.0};
 
-  for (int i = 0; i < steps; i++)
-  {
-     stepper.DoStep(tau, y);
+    auto rhs = std::make_shared<MassSpring>(1.0, 1.0);
 
-     std::cout << (i+1) * tau << "  " << y(0) << " " << y(1) << std::endl;
-     outfile << (i+1) * tau << "  " << y(0) << " " << y(1) << std::endl;
-  }
+    ExplicitEuler  e_exp(rhs);
+    ImplicitEuler  e_imp(rhs);
+    ImprovedEuler  e_impv(rhs);
+
+    std::string fe = "compare_results/explicit_" + std::to_string(steps) + ".txt";
+    std::string fi = "compare_results/implicit_" + std::to_string(steps) + ".txt";
+    std::string fm = "compare_results/improved_" + std::to_string(steps) + ".txt";
+
+    std::ofstream out_e(fe);
+    std::ofstream out_i(fi);
+    std::ofstream out_m(fm);
+
+    out_e << 0.0 << " " << y_exp(0) << " " << y_exp(1) << " " << steps << "\n";
+    out_i << 0.0 << " " << y_imp(0) << " " << y_imp(1) << " " << steps << "\n";
+    out_m << 0.0 << " " << y_impv(0) << " " << y_impv(1) << " " << steps << "\n";
+
+    for (int j = 0; j < steps; j++)
+    {
+        double t = (j + 1) * tau;
+
+        e_exp.DoStep(tau, y_exp);
+        e_imp.DoStep(tau, y_imp);
+        e_impv.DoStep(tau, y_impv);
+
+        out_e << t << " " << y_exp(0) << " " << y_exp(1) << " " << steps << "\n";
+        out_i << t << " " << y_imp(0) << " " << y_imp(1) << " " << steps << "\n";
+        out_m << t << " " << y_impv(0) << " " << y_impv(1) << " " << steps << "\n";
+    }
+
+    return 0;
 }
