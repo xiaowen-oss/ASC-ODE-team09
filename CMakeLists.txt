@@ -16,3 +16,19 @@ target_link_libraries (test_ode PUBLIC nanoblas)
 add_executable (demo_autodiff demos/demo_autodiff.cpp)
 target_link_libraries (demo_autodiff PUBLIC nanoblas)
 
+add_executable(Explicit_Euler
+    Exercise1/ex17.2.2/Explicit_Euler.cpp
+)
+target_link_libraries(Explicit_Euler PUBLIC nanoblas)
+
+add_executable(Improved_Euler
+    Exercise1/ex17.2.2/Improved_Euler.cpp
+)
+target_link_libraries(Improved_Euler PUBLIC nanoblas)
+
+
+add_executable(Implicit_Euler Exercise1/ex17.4.1/Implicit_Euler.cpp)
+target_link_libraries(Implicit_Euler PUBLIC nanoblas)
+
+add_executable(Crank_Nicolson Exercise1/ex17.4.1/Crank_Nicolson.cpp)
+target_link_libraries(Crank_Nicolson PUBLIC nanoblas)

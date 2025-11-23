@@ -49,3 +49,25 @@ build/
 # Python cache
 __pycache__/
 *.pyc
+
+# Python venv
+venv/
+.env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# local libs
+lib/
+lib64/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# macOS (if applicable)
+.DS_Store

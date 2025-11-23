@@ -4,6 +4,8 @@
 #include "nonlinfunc.hpp"
 #include <inverse.hpp>
 #include <lapack_interface.hpp>
+#include <functional>
+
 
 namespace ASC_ode
 {  
@@ -29,8 +31,8 @@ namespace ASC_ode
         // LU.solve(res);
         // x -= res;
  
-        if (callback)
-          callback(i, err, x);
+        //if (callback)
+        //  callback(i, err, x);
       }
 
     throw std::domain_error("Newton did not converge");
