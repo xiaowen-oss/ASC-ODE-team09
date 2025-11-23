@@ -69,11 +69,11 @@ public:
 
     void DoStep(double tau, VectorView<double> y) override
     {
-        m_rhs->evaluate(y, m_vecf);          // k1 = f(y_n)
-        m_y_hat = y;                         // y_hat = y_n
-        m_y_hat += (tau/2.0) * m_vecf;       // y_hat += τ/2 * k1
-        m_rhs->evaluate(m_y_hat, m_vecf);    // k2 = f(y_hat)
-        y += tau * m_vecf;                   // y_{n+1} = y_n + τ * k2
+        m_rhs->evaluate(y, m_vecf);          
+        m_y_hat = y;                         
+        m_y_hat += (tau/2.0) * m_vecf;      
+        m_rhs->evaluate(m_y_hat, m_vecf);   
+        y += tau * m_vecf;                  
     }
 };
 
