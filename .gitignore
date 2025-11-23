@@ -38,3 +38,14 @@ mass_spring/.ipynb_checkpoints
 
 docs/_build
 demos/output*.txt
+
+
+# Python virtual environment
+.venv/
+
+# CMake build folder
+build/
+
+# Python cache
+__pycache__/
+*.pyc
