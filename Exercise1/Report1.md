@@ -29,7 +29,7 @@ Use different time-steps tau = {0.1, 0.05, 0.01} and much larger end-times T=8*p
 
 -----
 ### Q2 : Overall Process
-Similar with Q1, adapted `Improved_Euler.cpp` to get `improved_euler.csv`. Then adaped `plotq2.py` and get graph `plot3` and `plot4`.
+Similar with Q1, adapted `Improved_Euler.cpp` to get `improved_euler.csv`. Then adapted `plotq2.py` and get graph `plot3` and `plot4`.
 
 
 ### Q2 : Plot 
@@ -41,7 +41,7 @@ Similar with Q1, adapted `Improved_Euler.cpp` to get `improved_euler.csv`. Then 
 ![ Plot 2 : Phase Plots ](plot4.png)
 
 
-### Comparation: Explicit Euler Method vs Improved Euler Method
+### Comparison: Explicit Euler Method vs Improved Euler Method
 - Obviously, the Improved Euler method shows significantly better stability and accuracy for the mass–spring system.
 
 - For all three time steps, the time-evolution plots indicate that Improved Euler preserves both the amplitude and phase of the oscillation almost perfectly over long times. In contrast, Explicit Euler exhibits clear fluctuation.
