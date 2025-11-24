@@ -5,8 +5,6 @@ Read the [documentation](https://tuwien-asc.github.io/ASC-ODE/intro.html)
 
 Find theory behind here: https://jschoeberl.github.io/IntroSC/ODEs/ODEs.html
 
-Jupyterbook: http://localhost:3000/report1
-
 
 ## Exercise 1 (due 24.11.2025)
 1. Solve problem 17.2.2 and 17.4.1
