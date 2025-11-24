@@ -1,0 +1,15 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: b93429a7-85fa-48f6-815a-74a016631253
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/xiaowen-oss/ASC-ODE-team09
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png

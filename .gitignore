@@ -71,3 +71,6 @@ lib64/
 
 # macOS (if applicable)
 .DS_Store
+
+# MyST build outputs
+_build
