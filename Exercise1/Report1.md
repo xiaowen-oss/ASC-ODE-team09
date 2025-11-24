@@ -68,9 +68,7 @@ Adapted `Implicit_Euler.cpp` to get `implicit_euler.csv`. Then adaped `plotq2.1.
 ### Q2 : Overall Process
 1. The general function of Crank-Nicolson method is:
 
-$$
-u_{n+1} - u_n - \frac{\tau}{2}\bigl(f(u_{n+1}) + f(u_n)\bigr) = 0 .
-$$
+$$u_{n+1} - u_n - \frac{\tau}{2}\bigl(f(u_{n+1}) + f(u_n)\bigr) = 0$$
 
 2. Adapted `Crank_Nicolson.cpp` to get `crank_nicolson.csv`. Then adaped `plotq2.2.py` and get graph `plot7` and `plot8`.
 
