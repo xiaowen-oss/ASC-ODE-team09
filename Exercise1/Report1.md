@@ -53,7 +53,7 @@ Similar with Q1, adapted `Improved_Euler.cpp` to get `improved_euler.csv`. Then 
 ## Exercise 17.4.1
 
 ### Q1 : Overall Process
-Adapted `Implicit_Euler.cpp` to get `implicit_euler.csv`. Then adaped `plotq2.1.py` and get graph `plot5` and `plot6`.
+Adapted `Implicit_Euler.cpp` to get `implicit_euler.csv`. Then adapted `plotq2.1.py` and get graph `plot5` and `plot6`.
 
 ### Q1 : Plot 
 
@@ -68,9 +68,11 @@ Adapted `Implicit_Euler.cpp` to get `implicit_euler.csv`. Then adaped `plotq2.1.
 ### Q2 : Overall Process
 1. The general function of Crank-Nicolson method is:
 
-$$u_{n+1} - u_n - \frac{\tau}{2}\bigl(f(u_{n+1}) + f(u_n)\bigr) = 0$$
+```{math}
+u_{n+1} - u_n - \frac{\tau}{2}\bigl(f(u_{n+1}) + f(u_n)\bigr) = 0
+```
 
-2. Adapted `Crank_Nicolson.cpp` to get `crank_nicolson.csv`. Then adaped `plotq2.2.py` and get graph `plot7` and `plot8`.
+3. Adapted `Crank_Nicolson.cpp` to get `crank_nicolson.csv`. Then adapted `plotq2.2.py` and get graph `plot7` and `plot8`.
 
 ### Q2 : Plot 
 
@@ -83,7 +85,7 @@ $$u_{n+1} - u_n - \frac{\tau}{2}\bigl(f(u_{n+1}) + f(u_n)\bigr) = 0$$
 
 ### Q3 : Comparison of the Four Time-Stepping Methods
 
-Now we compare 4 methods in previouly mentioned:
+Now we compare 4 methods in previously mentioned:
 
 **Explicit Euler**
 
@@ -110,7 +112,7 @@ Now we compare 4 methods in previouly mentioned:
 
 **Crank–Nicolson**
 
--  Champion. Always stable, and energy-preserving method for linear oscillatory systems.
+- It is the one given the best results. Always stable, and energy-preserving method for linear oscillatory systems.
 
 - The phase plots remain almost perfectly circular for all tested time-steps.
 
