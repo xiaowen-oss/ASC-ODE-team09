@@ -1,8 +1,53 @@
-# Team 09 : Exercise 2 (Due 01.12.2025)
-*All documents we mentioned can be found in branch "Exercise1".*
+# Exercise 18.5 — AutoDiff Pendulum
 
-```
-For Mass-Spring System, set m=k. 
+---
 
-Use different time-steps tau = {0.1, 0.05, 0.01} and much larger end-times T=8*pi.
-```
+##  Overall Process
+
+1. Adapted the C++ file `ex18_5.cpp` to simulate the nonlinear pendulum using  
+   \[
+       \dot{\theta} = \omega,\qquad 
+       \dot{\omega} = -\frac{g}{L}\sin(\theta)
+   \]
+   with **AutoDiff-based Jacobian evaluation**.
+
+2. Generated output trajectory file:  
+   **`ex18_5.csv`**
+
+3. Created Python scripts to plot:  
+   - `pendulum_time.png` — Time evolution of θ(t) and ω(t)  
+   - `pendulum_phase.png` — Phase portrait (θ vs ω)
+
+---
+
+##  Plots
+
+### **Plot 1 – Time Evolution of Pendulum (Explicit Euler)**
+
+![Time Evolution](ex18_5_plot.png)
+
+This plot shows the temporal evolution of the pendulum state variables:
+- \( \theta(t) \): angular displacement  
+- \( \omega(t) \): angular velocity  
+
+Euler integration introduces numerical energy growth over time.
+
+---
+
+### **Plot 2 – Phase Plot (Explicit Euler)**
+
+![Phase Plot](phase_ex18_5.png)
+
+This is the θ–ω phase portrait of the nonlinear pendulum.  
+A true physical pendulum would trace closed orbits (constant energy), but explicit Euler causes energy to drift.
+
+---
+
+## Conclusion
+
+- The explicit Euler method behaves **numerically unstable** for oscillatory systems like the pendulum.
+- The **time evolution plot** shows that both \( \theta(t) \) and \( \omega(t) \) exhibit **increasing amplitude**, indicating energy gain.
+- The **phase portrait** spirals outward instead of forming closed loops:
+  - This means **energy is not conserved** numerically.
+  - The trajectory grows unphysically over time.
+- AutoDiff successfully computes Jacobians

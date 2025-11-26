@@ -24,9 +24,12 @@ public:
     size_t dimX() const override { return 2; }
     size_t dimF() const override { return 2; }
 
+    // -------------------------------------------------------
+    // REQUIRED BY BASE CLASS:
     // f(x)
-    void T_evaluate(VectorView<double> x,
-                    VectorView<double> f) const override
+    // -------------------------------------------------------
+    void evaluate(VectorView<double> x,
+                  VectorView<double> f) const override
     {
         double theta = x(0);
         double omega = x(1);
@@ -35,25 +38,29 @@ public:
         f(1) = -(m_gravity / m_length) * std::sin(theta);
     }
 
-    // Jacobian using AutoDiff
+    // -------------------------------------------------------
+    // df/dx using AutoDiff
+    // -------------------------------------------------------
     void evaluateDeriv(VectorView<double> x,
                        MatrixView<double> df) const override
     {
-        using AD = AutoDiff<2, double>;
+        using AD = AutoDiff<2,double>;
 
-        AD th  = Variable<0,double>( x(0) );   // theta
-        AD om  = Variable<1,double>( x(1) );   // omega
+        AD th = Variable<0,double>( x(0) );
+        AD om = Variable<1,double>( x(1) );
 
-        AD f0 = om;                             // f0 = omega
-        AD f1 = -(m_gravity / m_length) * sin(th);
+        AD f0 = om;
 
-        // Fill Jacobian
+        AD C(-(m_gravity/m_length));
+        AD f1 = C * sin(th);
+
         df(0,0) = f0.deriv()[0];
         df(0,1) = f0.deriv()[1];
         df(1,0) = f1.deriv()[0];
         df(1,1) = f1.deriv()[1];
     }
 };
+
 
 
 // ---------------------------------------------------------
