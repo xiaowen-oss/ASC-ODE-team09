@@ -2,14 +2,16 @@
 
 ---
 
-##  Overall Process
+## Overall Process
 
 1. Adapted the C++ file `ex18_5.cpp` to simulate the nonlinear pendulum using  
-   \[
-       \dot{\theta} = \omega,\qquad 
-       \dot{\omega} = -\frac{g}{L}\sin(\theta)
-   \]
-   with **AutoDiff-based Jacobian evaluation**.
+
+$$
+\dot{\theta} = \omega,\qquad 
+\dot{\omega} = -\frac{g}{L}\sin(\theta)
+$$
+
+with **AutoDiff-based Jacobian evaluation**.
 
 2. Generated output trajectory file:  
    **`ex18_5.csv`**
@@ -20,7 +22,7 @@
 
 ---
 
-##  Plots
+## Plots
 
 ### **Plot 1 – Time Evolution of Pendulum (Explicit Euler)**
 
@@ -50,4 +52,4 @@ A true physical pendulum would trace closed orbits (constant energy), but explic
 - The **phase portrait** spirals outward instead of forming closed loops:
   - This means **energy is not conserved** numerically.
   - The trajectory grows unphysically over time.
-- AutoDiff successfully computes Jacobians
+- AutoDiff successfully computes Jacobians for the nonlinear pendulum model.
