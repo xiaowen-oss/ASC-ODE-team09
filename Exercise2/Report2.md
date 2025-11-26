@@ -29,8 +29,8 @@ with **AutoDiff-based Jacobian evaluation**.
 ![Time Evolution](ex18_5_plot.png)
 
 This plot shows the temporal evolution of the pendulum state variables:
-- $$ \( \theta(t) \) $$ : angular displacement  
-- $$ \( \omega(t) \) $$: angular velocity  
+- $ \( \theta(t) \) $ : angular displacement  
+- $ \( \omega(t) \) $: angular velocity  
 
 Euler integration introduces numerical energy growth over time.
 
@@ -48,7 +48,7 @@ A true physical pendulum would trace closed orbits (constant energy), but explic
 ## Conclusion
 
 - The explicit Euler method behaves **numerically unstable** for oscillatory systems like the pendulum.
-- The **time evolution plot** shows that both \( \theta(t) \) and \( \omega(t) \) exhibit **increasing amplitude**, indicating energy gain.
+- The **time evolution plot** shows that both  $\( \theta(t) \) $ and $\( \omega(t) \)$ exhibit **increasing amplitude**, indicating energy gain.
 - The **phase portrait** spirals outward instead of forming closed loops:
   - This means **energy is not conserved** numerically.
   - The trajectory grows unphysically over time.
