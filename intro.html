@@ -348,11 +348,10 @@ ASC-ODE provides various time-steppers which may be used for odes with right han
 given by a function object.</p>
 <p>A small demo for solving a mass-spring model as first order ODE</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}\begin{align*}
+\[ \begin{align}\begin{aligned}\begin{split}\begin{aligned}
 y_0' &amp;= y_1 \\
 y_1' &amp;= -\frac{k}{m}\, y_0
-\end{align*}
-is here:\end{split}\\```cpp
+\end{aligned}\end{split}\\```cpp
 double tend = 4*M_PI;
 int steps = 100;
 double tau = tend/steps;\\Vector&lt;&gt; y = { 1, 0 };  // initial conditions
