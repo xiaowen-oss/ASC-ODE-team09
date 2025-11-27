@@ -1,11 +1,6 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
 format: jb-book
-root: intro.md
+root: intro
 
-
-
-
-
-
+chapters:
+  - file: ex17.2.2
+  - file: ex17.4.1

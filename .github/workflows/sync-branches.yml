@@ -1,0 +1,32 @@
+name: Sync branches to match main
+
+on:
+  push:
+    branches:
+      - main   
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Sync branches
+        run: |
+          TARGET_BRANCHES=("Zulfqar" "Zey" "inma")  
+          
+          for BR in "${TARGET_BRANCHES[@]}"; do
+            echo "Syncing $BR..."
+            git checkout $BR
+            git merge origin/main --no-edit || true
+            git push origin $BR || true
+          done
