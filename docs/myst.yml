@@ -25,4 +25,4 @@ site:
     folders: true
 
 renderer:
-  name: html
+  type: html
