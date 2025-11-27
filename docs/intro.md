@@ -8,12 +8,12 @@ given by a function object.
 
 A small demo for solving a mass-spring model as first order ODE
 
+
 ```{math}
-\begin{align*}
+\begin{aligned}
 y_0' &= y_1 \\
 y_1' &= -\frac{k}{m}\, y_0
-\end{align*}
-is here:
+\end{aligned}
 
 ```cpp
 double tend = 4*M_PI;
