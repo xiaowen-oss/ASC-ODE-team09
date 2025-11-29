@@ -108,12 +108,6 @@ int main()
 
     auto rhs = make_shared<MassSpringRHS>();
 
-    // explicit Euler
-    {
-        ExplicitEuler ee(rhs);
-        SolveAndWrite(ee, taus, T, "ex19_4_explicit_euler.csv");
-    }
-
     // RK2 
     {
         int s = 2;
@@ -136,11 +130,7 @@ int main()
         SolveAndWrite(rk4, taus, T, "ex19_4_rk4.csv");
     }
 
-    // implicit Euler 
-    {
-        ImplicitEuler ie(rhs);
-        SolveAndWrite(ie, taus, T, "ex19_4_implicit_euler.csv");
-    }
+
 
     // implicit RK with Gauss-Legendre 2-stage
     {
