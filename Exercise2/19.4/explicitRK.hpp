@@ -1,65 +1,142 @@
-#ifndef EXPLICITRK_HPP
-#define EXPLICITRK_HPP
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cmath>
 
-#include <vector.hpp>
-#include <matrix.hpp>
-
-#include "timestepper.hpp"
+#include "vector.hpp"
+#include "matrix.hpp"
 #include "nonlinfunc.hpp"
+#include "Newton.hpp"
+#include "timestepper.hpp"
+#include "implicitRK.hpp"
+#include "explicitRK.hpp"
 
-namespace ASC_ode
+using namespace std;
+using namespace ASC_ode;
+using namespace nanoblas;
+
+class MassSpringRHS : public NonlinearFunction
 {
-  using namespace nanoblas;
+public:
+    size_t dimX() const override { return 2; }
+    size_t dimF() const override { return 2; }
 
-  // Explicit Runge–Kutta method 
-  class ExplicitRungeKutta : public TimeStepper
-  {
-    Matrix<> m_a;
-    Vector<> m_b, m_c;
-    int m_stages;
-    int m_n;
-
-    Vector<> m_k;   // all stage derivatives
-    Vector<> m_y;   // all stage states
-
-  public:
-    ExplicitRungeKutta(std::shared_ptr<NonlinearFunction> rhs,
-                       const Matrix<> &a,
-                       const Vector<> &b,
-                       const Vector<> &c)
-      : TimeStepper(rhs),
-        m_a(a), m_b(b), m_c(c),
-        m_stages(int(c.size())),
-        m_n(int(rhs->dimX())),
-        m_k(m_stages * m_n),
-        m_y(m_stages * m_n)
+    void evaluate(VectorView<double> u, VectorView<double> f) const override
     {
-      if (m_a.rows() != m_stages || m_a.cols() != m_stages)
-        throw std::runtime_error("ExplicitRungeKutta: A must be s x s");
-      if (m_b.size() != size_t(m_stages))
-        throw std::runtime_error("ExplicitRungeKutta: b must have size s");
+        double y = u(0);
+        double v = u(1);
+        f(0) = v;
+        f(1) = -y;
     }
 
-    void DoStep(double tau, VectorView<double> y) override
+    void evaluateDeriv(VectorView<double> u, MatrixView<double> df) const override
     {
-      // compute stages
-      for (int j = 0; j < m_stages; j++)
-      {
-        auto yj = m_y.range(j*m_n, (j+1)*m_n);
-        yj = y;
-
-        for (int ell = 0; ell < j; ell++)
-          yj += tau * m_a(j, ell) * m_k.range(ell*m_n, (ell+1)*m_n);
-
-        m_rhs->evaluate(yj, m_k.range(j*m_n, (j+1)*m_n));
-      }
-
-      // update solution
-      for (int j = 0; j < m_stages; j++)
-        y += tau * m_b(j) * m_k.range(j*m_n, (j+1)*m_n);
+        df = 0.0;
+        df(0,1) = 1.0;
+        df(1,0) = -1.0;
     }
-  };
+};
 
-} // namespace ASC_ode
+// 2-stage explicit RK (midpoint-type)
+void SetupRK2(Matrix<> &A, Vector<> &b, Vector<> &c)
+{
+    A = 0.0;
+    A(1,0) = 0.5;
 
-#endif // EXPLICITRK_HPP
+    b(0) = 0.0;
+    b(1) = 1.0;
+
+    c(0) = 0.0;
+    c(1) = 0.5;
+}
+
+// classical 4-stage RK4
+void SetupRK4(Matrix<> &A, Vector<> &b, Vector<> &c)
+{
+    A = 0.0;
+    A(1,0) = 0.5;
+    A(2,1) = 0.5;
+    A(3,2) = 1.0;
+
+    b(0) = 1.0/6.0;
+    b(1) = 1.0/3.0;
+    b(2) = 1.0/3.0;
+    b(3) = 1.0/6.0;
+
+    c(0) = 0.0;
+    c(1) = 0.5;
+    c(2) = 0.5;
+    c(3) = 1.0;
+}
+
+
+void SolveAndWrite(TimeStepper &stepper,
+                   const vector<int> &Ns,
+                   double T,
+                   const string &filename)
+{
+    ofstream fout(filename);
+    fout << "tau,t,y,v\n";
+
+    for (int N : Ns)
+    {
+        double tau = T / double(N);
+
+        Vector<> u(2);
+        u(0) = 1.0;  // initial position
+        u(1) = 0.0;  // initial velocity
+
+        double t = 0.0;
+        fout << tau << "," << t << "," << u(0) << "," << u(1) << "\n";
+
+        for (int k = 0; k < N; k++)
+        {
+            stepper.DoStep(tau, u);
+            t += tau;
+            fout << tau << "," << t << "," << u(0) << "," << u(1) << "\n";
+        }
+    }
+
+    fout.close();
+    cout << "Wrote " << filename << endl;
+}
+
+int main()
+{
+    double T = 8.0 * M_PI;
+
+    // numbers of time steps (as suggested by Fan Xiaowen)
+    vector<int> Ns = { 10, 50, 100 };
+
+    auto rhs = make_shared<MassSpringRHS>();
+
+    // RK2 (explicit)
+    {
+        int s = 2;
+        Matrix<> A(s,s);
+        Vector<> b(s), c(s);
+        SetupRK2(A, b, c);
+
+        ExplicitRungeKutta rk2(rhs, A, b, c);
+        SolveAndWrite(rk2, Ns, T, "ex19_4_rk2.csv");
+    }
+
+    // RK4 (explicit)
+    {
+        int s = 4;
+        Matrix<> A(s,s);
+        Vector<> b(s), c(s);
+        SetupRK4(A, b, c);
+
+        ExplicitRungeKutta rk4(rhs, A, b, c);
+        SolveAndWrite(rk4, Ns, T, "ex19_4_rk4.csv");
+    }
+
+    // implicit RK with Gauss-Legendre 2-stage
+    {
+        ImplicitRungeKutta irk(rhs, Gauss2a, Gauss2b, Gauss2c);
+        SolveAndWrite(irk, Ns, T, "ex19_4_irk_gauss2.csv");
+    }
+
+    return 0;
+}
