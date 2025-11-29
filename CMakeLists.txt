@@ -33,3 +33,6 @@ target_link_libraries(Implicit_Euler PUBLIC nanoblas)
 
 add_executable(Crank_Nicolson Exercise1/ex17.4.1/Crank_Nicolson.cpp)
 target_link_libraries(Crank_Nicolson PUBLIC nanoblas)
+
+add_executable(RK_compare Exercise2/19.4/Rk_compare.cpp)
+target_link_libraries(RK_compare PUBLIC nanoblas)
