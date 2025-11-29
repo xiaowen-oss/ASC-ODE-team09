@@ -9,10 +9,8 @@ def load_csv(filename, tau_value):
 tau = 0.01
 
 methods = {
-    "Explicit Euler"    : "ex19_4_explicit_euler.csv",
     "RK2 (explicit)"    : "ex19_4_rk2.csv",
     "RK4 (explicit)"    : "ex19_4_rk4.csv",
-    "Implicit Euler"    : "ex19_4_implicit_euler.csv",
     "IRK Gauss-2"       : "ex19_4_irk_gauss2.csv",
 }
 
