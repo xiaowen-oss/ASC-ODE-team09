@@ -126,30 +126,30 @@ For each τ, the error is computed as
 
 ### ExplicitRungeKutta implementation
 
-- The generic `ExplicitRungeKutta` time-stepper successfully handles **arbitrary explicit Butcher tableaus** with a lower triangular \(A\).  
-- RK2 and RK4 are obtained only by providing their coefficients, confirming that the implementation is **method-agnostic** and reusable.
+- The generic `ExplicitRungeKutta` time-stepper successfully handles arbitrary explicit Butcher tableaus with a lower triangular \(A\).  
+- RK2 and RK4 are obtained only by providing their coefficients, confirming that the implementation is method-agnostic and reusable.
 
 ### RK2 (Explicit Heun)
 
-- Second-order accuracy; works well only for **small τ**.  
+- Second-order accuracy; works well only for small τ.  
 - For τ ≥ 0.5, strong phase and amplitude errors accumulate.  
-- For τ ≥ 1.0, RK2 becomes **numerically unstable** for the oscillatory system.
+- For τ ≥ 1.0, RK2 becomes numerically unstable for the oscillatory system.
 
 ### RK4 (Classical Explicit)
 
 - Much better long-time accuracy than RK2.  
-- Still **not A-stable**: for very large τ, phase errors become dominant.  
+- Still not A-stable: for very large τ, phase errors become dominant.  
 - Reasonable choice for moderate τ when an explicit scheme is required.
 
 ### Gauss–Legendre IRK (s=2)
 
-- **A-stable and symplectic**.  
+- A-stable and symplectic.  
 - Preserves the qualitative structure of the oscillation very well, even for larger τ.  
 - Error remains bounded for all tested step sizes; phase plots stay close to a circle.
 
 ### Radau IIA IRK (s=2)
 
-- **L-stable implicit method**: damps high-frequency / stiff components.  
+- L-stable implicit method: damps high-frequency / stiff components.  
 - Extremely robust for large τ; the solution does not blow up.  
 - Shows numerical damping on this pure oscillatory problem, but has the best stability among all tested methods.
 
