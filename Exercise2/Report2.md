@@ -15,13 +15,6 @@ Prerequire
 1. **Implementation of a generic ExplicitRungeKutta time-stepper**  
    - Created `ExplicitRungeKutta` class in `explicitRK.hpp` that takes an arbitrary **Butcher tableau**  
      \((A,b,c)\) with **strictly lower triangular** \(A\) (explicit RK).  
-   - For each stage \(i\) we compute
-     \[
-       k_i = f\!\Big(u^n + \tau \sum_{j < i} a_{ij} k_j\Big), \qquad
-       u^{n+1} = u^n + \tau \sum_i b_i k_i.
-     \]
-   - This implementation is independent of a particular method; RK2 and RK4 are obtained
-     only by plugging in their specific coefficients.
 
 2. **Definition of specific Butcher tableaus**
    - Added setup routines for  
@@ -51,6 +44,7 @@ Below we summarize the key graphical outputs (only representative examples are s
 
 All four methods overlap almost perfectly.  
 Small step size ⇒ high accuracy for all methods; the oscillation keeps correct amplitude and phase.
+
  ![ ](19.4/time_evolution_tau_0.01.png)  
 ---
 
@@ -161,4 +155,3 @@ For each τ, the error is computed as
 
 ---
 
-# General Summary
