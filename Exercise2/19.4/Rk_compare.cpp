@@ -15,7 +15,6 @@ using namespace std;
 using namespace ASC_ode;
 using namespace nanoblas;
 
-// mass-spring system: y = (position, velocity)
 class MassSpringRHS : public NonlinearFunction
 {
 public:
@@ -38,7 +37,7 @@ public:
     }
 };
 
-// 2-stage explicit RK 
+// 2-stage explicit RK (midpoint-type)
 void SetupRK2(Matrix<> &A, Vector<> &b, Vector<> &c)
 {
     A = 0.0;
@@ -70,26 +69,27 @@ void SetupRK4(Matrix<> &A, Vector<> &b, Vector<> &c)
     c(3) = 1.0;
 }
 
-// run the method for several step sizes and write CSV
+
 void SolveAndWrite(TimeStepper &stepper,
-                   const vector<double> &taus,
+                   const vector<int> &Ns,
                    double T,
                    const string &filename)
 {
     ofstream fout(filename);
     fout << "tau,t,y,v\n";
 
-    for(double tau : taus)
+    for (int N : Ns)
     {
+        double tau = T / double(N);
+
         Vector<> u(2);
-        u(0) = 1.0;   // initial position
-        u(1) = 0.0;   // initial velocity
+        u(0) = 1.0;  // initial position
+        u(1) = 0.0;  // initial velocity
 
         double t = 0.0;
         fout << tau << "," << t << "," << u(0) << "," << u(1) << "\n";
 
-        int steps = int(T / tau);
-        for(int k = 0; k < steps; k++)
+        for (int k = 0; k < N; k++)
         {
             stepper.DoStep(tau, u);
             t += tau;
@@ -103,12 +103,14 @@ void SolveAndWrite(TimeStepper &stepper,
 
 int main()
 {
-    vector<double> taus = {0.1, 0.05, 0.01};
     double T = 8.0 * M_PI;
+
+    // numbers of time steps (as suggested by Fan Xiaowen)
+    vector<int> Ns = { 10, 50, 100 };
 
     auto rhs = make_shared<MassSpringRHS>();
 
-    // RK2 
+    // RK2 (explicit)
     {
         int s = 2;
         Matrix<> A(s,s);
@@ -116,10 +118,10 @@ int main()
         SetupRK2(A, b, c);
 
         ExplicitRungeKutta rk2(rhs, A, b, c);
-        SolveAndWrite(rk2, taus, T, "ex19_4_rk2.csv");
+        SolveAndWrite(rk2, Ns, T, "ex19_4_rk2.csv");
     }
 
-    // RK4 
+    // RK4 (explicit)
     {
         int s = 4;
         Matrix<> A(s,s);
@@ -127,15 +129,13 @@ int main()
         SetupRK4(A, b, c);
 
         ExplicitRungeKutta rk4(rhs, A, b, c);
-        SolveAndWrite(rk4, taus, T, "ex19_4_rk4.csv");
+        SolveAndWrite(rk4, Ns, T, "ex19_4_rk4.csv");
     }
-
-
 
     // implicit RK with Gauss-Legendre 2-stage
     {
         ImplicitRungeKutta irk(rhs, Gauss2a, Gauss2b, Gauss2c);
-        SolveAndWrite(irk, taus, T, "ex19_4_irk_gauss2.csv");
+        SolveAndWrite(irk, Ns, T, "ex19_4_irk_gauss2.csv");
     }
 
     return 0;
