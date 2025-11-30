@@ -33,3 +33,13 @@ target_link_libraries(Implicit_Euler PUBLIC nanoblas)
 
 add_executable(Crank_Nicolson Exercise1/ex17.4.1/Crank_Nicolson.cpp)
 target_link_libraries(Crank_Nicolson PUBLIC nanoblas)
+
+
+add_executable(xian Exercise2/ex17.4.1/xian.cpp)
+target_link_libraries(xian PUBLIC nanoblas)
+
+add_executable(yin Exercise2/ex17.4.1/yin.cpp)
+target_link_libraries(yin PUBLIC nanoblas)
+
+add_executable(cn Exercise2/ex17.4.1/cn.cpp)
+target_link_libraries(cn PUBLIC nanoblas)
