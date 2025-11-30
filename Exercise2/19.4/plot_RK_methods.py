@@ -7,15 +7,18 @@ def load_csv(filename, tau_value):
     return data["t"][mask], data["y"][mask], data["v"][mask]
 
 methods = {
-    "RK2 (explicit)"  : "ex19_4_rk2.csv",
-    "RK4 (explicit)"  : "ex19_4_rk4.csv",
-    "IRK Gauss-2"     : "ex19_4_irk_gauss2.csv",
+    "RK2 (explicit)"        : "ex19_4_rk2.csv",
+    "RK4 (explicit)"        : "ex19_4_rk4.csv",
+    "IRK Gauss-2"           : "ex19_4_irk_gauss2.csv",
+    "Radau IIA (implicit)"  : "ex19_4_radau2a.csv",
+
 }
 
-taus = [0.1, 0.05, 0.01]
+
+taus = [0.01, 0.1, 0.5, 1.0, 2.0]
 
 for tau in taus:
-    plt.figure(figsize=(10,5))
+    plt.figure(figsize=(8,4))
     for label, filename in methods.items():
         t, y, v = load_csv(filename, tau)
         plt.plot(t, y, label=label)
@@ -27,6 +30,8 @@ for tau in taus:
     plt.tight_layout()
     plt.savefig(f"time_evolution_tau_{tau}.png", dpi=200)
 
+
+for tau in taus:
     plt.figure(figsize=(6,6))
     for label, filename in methods.items():
         t, y, v = load_csv(filename, tau)
