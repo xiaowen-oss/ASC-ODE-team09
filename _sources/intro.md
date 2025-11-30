@@ -14,6 +14,8 @@ y_0' &= y_1 \\
 y_1' &= -\frac{k}{m} y_0
 \end{aligned}
 
+```
+
 is here:
 
 ```cpp
