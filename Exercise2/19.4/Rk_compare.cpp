@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <cmath>
+#include <memory>
 
 #include "vector.hpp"
 #include "matrix.hpp"
@@ -38,7 +39,7 @@ public:
     }
 };
 
-// 2-stage explicit RK 
+// 2-stage explicit RK
 void SetupRK2(Matrix<> &A, Vector<> &b, Vector<> &c)
 {
     A = 0.0;
@@ -70,7 +71,21 @@ void SetupRK4(Matrix<> &A, Vector<> &b, Vector<> &c)
     c(3) = 1.0;
 }
 
-// run the method for several step sizes and write CSV
+void SetupRadau2A(Matrix<> &A, Vector<> &b, Vector<> &c)
+{
+    int s = 2;
+    A = 0.0;
+    A(0,0) = 5.0/12.0;   A(0,1) = -1.0/12.0;
+    A(1,0) = 3.0/4.0;    A(1,1) = 1.0/4.0;
+
+    b(0) = 3.0/4.0;
+    b(1) = 1.0/4.0;
+
+    c(0) = 1.0/3.0;
+    c(1) = 1.0;
+}
+
+
 void SolveAndWrite(TimeStepper &stepper,
                    const vector<double> &taus,
                    double T,
@@ -103,7 +118,8 @@ void SolveAndWrite(TimeStepper &stepper,
 
 int main()
 {
-    vector<double> taus = {0.1, 0.05, 0.01};
+   
+    vector<double> taus = {0.01, 0.1, 0.5, 1.0, 2.0};
     double T = 8.0 * M_PI;
 
     auto rhs = make_shared<MassSpringRHS>();
@@ -129,8 +145,15 @@ int main()
         ExplicitRungeKutta rk4(rhs, A, b, c);
         SolveAndWrite(rk4, taus, T, "ex19_4_rk4.csv");
     }
-
-
+    {
+        int s = 2;
+        Matrix<> A(s,s);
+        Vector<> b(s), c(s);
+        SetupRadau2A(A, b, c);
+    
+        ImplicitRungeKutta radau(rhs, A, b, c);
+        SolveAndWrite(radau, taus, T, "ex19_4_radau2a.csv");
+    }
 
     // implicit RK with Gauss-Legendre 2-stage
     {
