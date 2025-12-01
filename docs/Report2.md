@@ -1,14 +1,13 @@
 # Exercise 2 (Due 01.12.2025)
 *All documents we mentioned can be found in branch "Exercise2".*
 
-```
-Prerequire
-```
+
 ## Exercise 17.4.1
 
 ### Q4: Question Review
 
 We already have the main funtion
+
 $$
 U_c(t) + RC\,\frac{dU_C}{dt} = U_0(t)
 $$
@@ -22,7 +21,7 @@ and assumption:
 3. R = 100
 4. C = $ 10 ^{-6}$
 
-### Q4.1 : Transfer the system to antonomous form
+### Q4.1 : Rewrite the system to antonomous form
 
 We see that in the function, there are some terms realted to *t*. Now we define a new vector:
 
@@ -39,24 +38,85 @@ x_2
 \end{pmatrix}
 $$
 
-Finally we get the autonomous ODE: 
+**Finally we get the autonomous ODE:**
 
+$$
+\dot{x}_1 = \frac{1}{RC}\left(\cos(100\pi x_2) - x_1\right)
+$$
 
-```{math}
-\begin{aligned}
-\dot{x}_1 = \frac{1}{RC}\left(\cos(100\pi x_2) - x_1\right)\\
-\dot{x}_2 = 1\\
-with initial condition:
+$$
+\dot{x}_2 = 1
+$$
+
+with initial value
+
+$$
 x_1(0) = U_0(0) = 1, \qquad x_2(0) = 0
-\end{aligned}
+$$
 
-```
 
 ### Q4.2 : Numerically solve the problem with 3 methods
 
 In order to compare the methods: Explicit Euler, Implicit Euler and Crank Nilcolson method, add three head files: `RCRHC.hpp` `RCCircuit.hpp` and `RHS.hpp`
 
 Modify the previous main document, change the model from mass-spring to RC circuit. The main files are `xian.cpp` `yin.cpp` and `cn.cpp`. After getting the `csv` files, plot and analyze.
+
+**Attention**: Here we choose fixed step N = {50, 100, 200,300} and T = 0.2 to compare. In this case, the explicit method is not stable and the numerical solution blows up. So we put explicit euler method seperately and add log-log plot to see the error.
+
+### Plot
+
+**Explicit Euler method in different time step** (BLOW UP)
+
+![ex50](plot_ex2/ex50.png)
+
+![ex100](plot_ex2/ex100.png)
+
+![ex200](plot_ex2/ex200.png)
+
+![ex300](plot_ex2/ex300.png)
+
+
+**Implicit Euler vs Crank Nicolson in different time step**
+
+![in50](plot_ex2/in_cn50.png)
+
+
+![in100](plot_ex2/in_cn100.png)
+
+![in200](plot_ex2/in_cn200.png)
+
+![in300](plot_ex2/in_cn300.png)
+
+**Error Analysis**
+
+![error50](plot_ex2/error50.png)
+
+![error100](plot_ex2/error100.png)
+
+![error200](plot_ex2/error200.png)
+
+![error300](plot_ex2/error300.png)
+
+
+### Conclusion
+
+- Explicit Euler is unstable for the RC circuit.
+The step sizes 
+Δ𝑡=𝑇/𝑁 violate the stability limit Δ𝑡<2𝑅𝐶, leading to rapid blow-up.
+
+- Implicit Euler is stable but overly damped.
+As an A-stable first-order method, it does not diverge, but it introduces strong numerical dissipation.
+
+- Crank–Nicolson gives the best results.
+It is A-stable, second-order accurate, and preserves oscillation amplitude without artificial damping.
+
+- **Convergence behavior:**
+Explicit Euler → 1st order (unstable here)
+Implicit Euler → 1st order (stable but dissipative)
+Crank–Nicolson → 2nd order (accurate and stable)
+
+**Overall:**
+For this stiff RC system, Crank–Nicolson is the best method.
 
 
 

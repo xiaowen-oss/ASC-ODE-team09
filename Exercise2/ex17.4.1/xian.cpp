@@ -13,8 +13,9 @@ using namespace ASC_ode;
 
 int main()
 {
-    std::vector<double> taus = {0.004, 0.002, 0.001};
-    double T = 0.2;   
+    // n = number of steps
+    std::vector<int> Ns = {50, 100, 200, 300};
+    double T = 0.2;
 
     double R = 100.0;
     double C = 1e-6;
@@ -23,26 +24,28 @@ int main()
     ExplicitEuler stepper(rhs);
 
     std::ofstream fout("xian.csv");
-    fout << "tau,t,UC,timevar\n";
+    fout << "N,t,UC,timevar\n";
 
-    for(double tau : taus)
+    for(int N : Ns)
     {
-        int steps = T / tau;
+        double tau = T / N;   //  compute tau automatically
 
         Vector<double> x(2);
         x(0) = 1.0;   // UC(0)
-        x(1) = 0.0;   // t(0)
+        x(1) = 0.0;   // t(0) — time is state variable
 
-        fout << tau << "," << x(1) << "," << x(0) << "," << x(1) << "\n";
+        // output initial condition
+        fout << N << "," << x(1) << "," << x(0) << "," << x(1) << "\n";
 
-        for(int i=0; i<steps; i++)
+        for(int i = 0; i < N; i++)
         {
-            stepper.DoStep(tau, x);
+            stepper.DoStep(tau, x);   //  update both UC and t
 
-            fout << tau << "," << x(1) << "," << x(0) << "," << x(1) << "\n";
+            fout << N << "," << x(1) << "," << x(0) << "," << x(1) << "\n";
         }
     }
 
     fout.close();
+    std::cout << "xian.\n";
     return 0;
 }
