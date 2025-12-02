@@ -4,4 +4,7 @@ root: intro
 chapters:
   - file: ex17.2.2
   - file: ex17.4.1
-  - file: Report2
+  - file: ex17.4.1_q4
+  - file: ex18.4
+  - file: ex18.5
+  - file: ex19.4
