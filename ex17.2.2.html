@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Team 09 : Exercise 1 (Due 24.11.2025) &#8212; ASC-ODE Documentation</title>
+    <title>Exercise 17.2.2 &#8212; ASC-ODE Documentation</title>
   
   
   
@@ -174,9 +174,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Team 09 : Exercise 1 (Due 24.11.2025)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 17.2.2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex17.4.1.html">Exercise 17.4.1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Report2.html">Exercise 2 (Due 01.12.2025)</a></li>
 </ul>
 
     </div>
@@ -315,7 +314,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Team 09 : Exercise 1 (Due 24.11.2025)</h1>
+    <h1>Exercise 17.2.2</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -325,23 +324,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17-2-2">Exercise 17.2.2</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-explicit-euler">Plot 1 : Time Evolution (explicit euler)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plots-explicit-euler">Plot 2 : Phase Plots (explicit euler)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-explicit-euler">Plot 1 : Time Evolution (explicit euler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plots-explicit-euler">Plot 2 : Phase Plots (explicit euler)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-conclusion">Q1 : Conclusion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-improved-euler">Plot 3 : Time Evolution (improved euler)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-plots-improved-euler">Plot 4 : Phase Plots (improved euler)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-conclusion">Q1 : Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-improved-euler">Plot 3 : Time Evolution (improved euler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-plots-improved-euler">Plot 4 : Phase Plots (improved euler)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-explicit-euler-method-vs-improved-euler-method">Comparison: Explicit Euler Method vs Improved Euler Method</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-explicit-euler-method-vs-improved-euler-method">Comparison: Explicit Euler Method vs Improved Euler Method</a></li>
 </ul>
             </nav>
         </div>
@@ -353,18 +349,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="team-09-exercise-1-due-24-11-2025">
-<h1>Team 09 : Exercise 1 (Due 24.11.2025)<a class="headerlink" href="#team-09-exercise-1-due-24-11-2025" title="Permalink to this heading">#</a></h1>
-<p><em>All documents we mentioned can be found in branch “Exercise1”.</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">For</span> <span class="n">Mass</span><span class="o">-</span><span class="n">Spring</span> <span class="n">System</span><span class="p">,</span> <span class="nb">set</span> <span class="n">m</span><span class="o">=</span><span class="n">k</span><span class="o">.</span> 
-
-<span class="n">Use</span> <span class="n">different</span> <span class="n">time</span><span class="o">-</span><span class="n">steps</span> <span class="n">tau</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">}</span> <span class="ow">and</span> <span class="n">much</span> <span class="n">larger</span> <span class="n">end</span><span class="o">-</span><span class="n">times</span> <span class="n">T</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">pi</span><span class="o">.</span>
-</pre></div>
-</div>
-<section id="exercise-17-2-2">
-<h2>Exercise 17.2.2<a class="headerlink" href="#exercise-17-2-2" title="Permalink to this heading">#</a></h2>
+  <section id="exercise-17-2-2">
+<h1>Exercise 17.2.2<a class="headerlink" href="#exercise-17-2-2" title="Permalink to this heading">#</a></h1>
 <section id="q1-overall-process">
-<h3>Q1 : Overall Process<a class="headerlink" href="#q1-overall-process" title="Permalink to this heading">#</a></h3>
+<h2>Q1 : Overall Process<a class="headerlink" href="#q1-overall-process" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Adapted the <code class="docutils literal notranslate"><span class="pre">Explicit_Euler.cpp</span></code> to get <code class="docutils literal notranslate"><span class="pre">explicit_euler.csv</span></code>.</p></li>
 <li><p>Adapted the <code class="docutils literal notranslate"><span class="pre">plotq1.py</span></code> to get performance plot <code class="docutils literal notranslate"><span class="pre">plot1_time_evolution.png</span></code> and <code class="docutils literal notranslate"><span class="pre">plot2_phase.png</span></code>.</p></li>
@@ -372,18 +360,18 @@ document.write(`
 </ol>
 </section>
 <section id="q1-plot">
-<h3>Q1 : Plot<a class="headerlink" href="#q1-plot" title="Permalink to this heading">#</a></h3>
+<h2>Q1 : Plot<a class="headerlink" href="#q1-plot" title="Permalink to this heading">#</a></h2>
 <section id="plot-1-time-evolution-explicit-euler">
-<h4>Plot 1 : Time Evolution (explicit euler)<a class="headerlink" href="#plot-1-time-evolution-explicit-euler" title="Permalink to this heading">#</a></h4>
+<h3>Plot 1 : Time Evolution (explicit euler)<a class="headerlink" href="#plot-1-time-evolution-explicit-euler" title="Permalink to this heading">#</a></h3>
 <p><img alt="Plot 1 : Time Evolution " src="_images/plot1_time_evolution.png" /></p>
 </section>
 <section id="plot-2-phase-plots-explicit-euler">
-<h4>Plot 2 : Phase Plots (explicit euler)<a class="headerlink" href="#plot-2-phase-plots-explicit-euler" title="Permalink to this heading">#</a></h4>
+<h3>Plot 2 : Phase Plots (explicit euler)<a class="headerlink" href="#plot-2-phase-plots-explicit-euler" title="Permalink to this heading">#</a></h3>
 <p><img alt=" Plot 2 : Phase Plots " src="_images/plot2_phase.png" /></p>
 </section>
 </section>
 <section id="q1-conclusion">
-<h3>Q1 : Conclusion<a class="headerlink" href="#q1-conclusion" title="Permalink to this heading">#</a></h3>
+<h2>Q1 : Conclusion<a class="headerlink" href="#q1-conclusion" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>In time evolution plots, both x(t) and v(t) show increasing amplitude, and the growth becomes faster for larger time steps.</p></li>
 <li><p>In phase plots clearly illustrate this behavior: instead of forming closed circles (energy conservation), the trajectories spiral outward.</p></li>
@@ -392,28 +380,27 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="q2-overall-process">
-<h3>Q2 : Overall Process<a class="headerlink" href="#q2-overall-process" title="Permalink to this heading">#</a></h3>
+<h2>Q2 : Overall Process<a class="headerlink" href="#q2-overall-process" title="Permalink to this heading">#</a></h2>
 <p>Similar with Q1, adapted <code class="docutils literal notranslate"><span class="pre">Improved_Euler.cpp</span></code> to get <code class="docutils literal notranslate"><span class="pre">improved_euler.csv</span></code>. Then adapted <code class="docutils literal notranslate"><span class="pre">plotq2.py</span></code> and get graph <code class="docutils literal notranslate"><span class="pre">plot3</span></code> and <code class="docutils literal notranslate"><span class="pre">plot4</span></code>.</p>
 </section>
 <section id="q2-plot">
-<h3>Q2 : Plot<a class="headerlink" href="#q2-plot" title="Permalink to this heading">#</a></h3>
+<h2>Q2 : Plot<a class="headerlink" href="#q2-plot" title="Permalink to this heading">#</a></h2>
 <section id="plot-3-time-evolution-improved-euler">
-<h4>Plot 3 : Time Evolution (improved euler)<a class="headerlink" href="#plot-3-time-evolution-improved-euler" title="Permalink to this heading">#</a></h4>
+<h3>Plot 3 : Time Evolution (improved euler)<a class="headerlink" href="#plot-3-time-evolution-improved-euler" title="Permalink to this heading">#</a></h3>
 <p><img alt="Plot 1 : Time Evolution " src="_images/plot3.png" /></p>
 </section>
 <section id="plot-4-phase-plots-improved-euler">
-<h4>Plot 4 : Phase Plots (improved euler)<a class="headerlink" href="#plot-4-phase-plots-improved-euler" title="Permalink to this heading">#</a></h4>
+<h3>Plot 4 : Phase Plots (improved euler)<a class="headerlink" href="#plot-4-phase-plots-improved-euler" title="Permalink to this heading">#</a></h3>
 <p><img alt=" Plot 2 : Phase Plots " src="_images/plot4.png" /></p>
 </section>
 </section>
 <section id="comparison-explicit-euler-method-vs-improved-euler-method">
-<h3>Comparison: Explicit Euler Method vs Improved Euler Method<a class="headerlink" href="#comparison-explicit-euler-method-vs-improved-euler-method" title="Permalink to this heading">#</a></h3>
+<h2>Comparison: Explicit Euler Method vs Improved Euler Method<a class="headerlink" href="#comparison-explicit-euler-method-vs-improved-euler-method" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Obviously, the Improved Euler method shows significantly better stability and accuracy for the mass–spring system.</p></li>
 <li><p>For all three time steps, the time-evolution plots indicate that Improved Euler preserves both the amplitude and phase of the oscillation almost perfectly over long times. In contrast, Explicit Euler exhibits clear fluctuation.</p></li>
 <li><p>The phase plots further highlight this difference: Improved Euler produces closed circular trajectories that remain nearly identical for all tau, indicating near-conservation of energy. Explicit Euler, however, generates outward-spiraling curves whose radius increases with time, especially for larger tau.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -481,23 +468,20 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17-2-2">Exercise 17.2.2</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-explicit-euler">Plot 1 : Time Evolution (explicit euler)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plots-explicit-euler">Plot 2 : Phase Plots (explicit euler)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-explicit-euler">Plot 1 : Time Evolution (explicit euler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plots-explicit-euler">Plot 2 : Phase Plots (explicit euler)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-conclusion">Q1 : Conclusion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-improved-euler">Plot 3 : Time Evolution (improved euler)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-plots-improved-euler">Plot 4 : Phase Plots (improved euler)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-conclusion">Q1 : Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-improved-euler">Plot 3 : Time Evolution (improved euler)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-plots-improved-euler">Plot 4 : Phase Plots (improved euler)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-explicit-euler-method-vs-improved-euler-method">Comparison: Explicit Euler Method vs Improved Euler Method</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-explicit-euler-method-vs-improved-euler-method">Comparison: Explicit Euler Method vs Improved Euler Method</a></li>
 </ul>
   </nav></div>
 

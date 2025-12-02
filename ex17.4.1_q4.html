@@ -62,10 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ex17.4.1';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ex17.4.1_q4';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Exercise 17.2.2" href="ex17.2.2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -128,6 +129,8 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -172,9 +175,9 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ex17.2.2.html">Exercise 17.2.2</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 17.4.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex17.4.1.html">Exercise 17.4.1</a></li>
 </ul>
 
     </div>
@@ -229,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/ex17.4.1.md" target="_blank"
+      <li><a href="_sources/ex17.4.1_q4.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -323,19 +326,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-time-evolution-implicit-euler">Plot 5 : Time Evolution (implicit euler)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-plots-implicit-euler">Plot 6 : Phase Plots (implicit euler)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-time-evolution-crank-nicolson">Plot 5 : Time Evolution (Crank-Nicolson)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-plots-crank-nicolson">Plot 6 : Phase Plots (Crank-Nicolson)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-comparison-of-the-four-time-stepping-methods">Q3 : Comparison of the Four Time-Stepping Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-question-review">Q4: Question Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-1-rewrite-the-system-to-antonomous-form">Q4.1 : Rewrite the system to antonomous form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-2-numerically-solve-the-problem-with-3-methods">Q4.2 : Numerically solve the problem with 3 methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
             </nav>
         </div>
@@ -349,73 +344,93 @@ document.write(`
                   
   <section id="exercise-17-4-1">
 <h1>Exercise 17.4.1<a class="headerlink" href="#exercise-17-4-1" title="Permalink to this heading">#</a></h1>
-<section id="q1-overall-process">
-<h2>Q1 : Overall Process<a class="headerlink" href="#q1-overall-process" title="Permalink to this heading">#</a></h2>
-<p>Adapted <code class="docutils literal notranslate"><span class="pre">Implicit_Euler.cpp</span></code> to get <code class="docutils literal notranslate"><span class="pre">implicit_euler.csv</span></code>. Then adapted <code class="docutils literal notranslate"><span class="pre">plotq2.1.py</span></code> and get graph <code class="docutils literal notranslate"><span class="pre">plot5</span></code> and <code class="docutils literal notranslate"><span class="pre">plot6</span></code>.</p>
-</section>
-<section id="q1-plot">
-<h2>Q1 : Plot<a class="headerlink" href="#q1-plot" title="Permalink to this heading">#</a></h2>
-<section id="plot-5-time-evolution-implicit-euler">
-<h3>Plot 5 : Time Evolution (implicit euler)<a class="headerlink" href="#plot-5-time-evolution-implicit-euler" title="Permalink to this heading">#</a></h3>
-<p><img alt="Plot 5 : Time Evolution " src="_images/plot5.png" /></p>
-</section>
-<section id="plot-6-phase-plots-implicit-euler">
-<h3>Plot 6 : Phase Plots (implicit euler)<a class="headerlink" href="#plot-6-phase-plots-implicit-euler" title="Permalink to this heading">#</a></h3>
-<p><img alt=" Plot 6 : Phase Plots " src="_images/plot6.png" /></p>
-</section>
-</section>
-<section id="q2-overall-process">
-<h2>Q2 : Overall Process<a class="headerlink" href="#q2-overall-process" title="Permalink to this heading">#</a></h2>
+<section id="q4-question-review">
+<h2>Q4: Question Review<a class="headerlink" href="#q4-question-review" title="Permalink to this heading">#</a></h2>
+<p>We already have the main funtion</p>
+<div class="math notranslate nohighlight">
+\[
+U_c(t) + RC\,\frac{dU_C}{dt} = U_0(t)
+\]</div>
+<p>with initial condition: <span class="math notranslate nohighlight">\(U_c(0) = U_0(0)\)</span></p>
+<p>and assumption:</p>
 <ol class="arabic simple">
-<li><p>The general function of Crank-Nicolson method is:</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">u_</span><span class="p">{</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">u_n</span> <span class="o">-</span> <span class="p">(</span><span class="n">tau</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">u_</span><span class="p">{</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">})</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">u_n</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="3">
-<li><p>Adapted <code class="docutils literal notranslate"><span class="pre">Crank_Nicolson.cpp</span></code> to get <code class="docutils literal notranslate"><span class="pre">crank_nicolson.csv</span></code>. Then adapted <code class="docutils literal notranslate"><span class="pre">plotq2.2.py</span></code> and get graph <code class="docutils literal notranslate"><span class="pre">plot7</span></code> and <code class="docutils literal notranslate"><span class="pre">plot8</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(U_c(t)\)</span> is the unknown quantity</p></li>
+<li><p><span class="math notranslate nohighlight">\(U_0(t) = cos(100*pi*t)\)</span></p></li>
+<li><p>R = 100</p></li>
+<li><p>C = <span class="math notranslate nohighlight">\( 10 ^{-6}\)</span></p></li>
 </ol>
 </section>
-<section id="q2-plot">
-<h2>Q2 : Plot<a class="headerlink" href="#q2-plot" title="Permalink to this heading">#</a></h2>
-<section id="plot-5-time-evolution-crank-nicolson">
-<h3>Plot 5 : Time Evolution (Crank-Nicolson)<a class="headerlink" href="#plot-5-time-evolution-crank-nicolson" title="Permalink to this heading">#</a></h3>
-<p><img alt="Plot 7 : Time Evolution " src="_images/plot7.png" /></p>
+<section id="q4-1-rewrite-the-system-to-antonomous-form">
+<h2>Q4.1 : Rewrite the system to antonomous form<a class="headerlink" href="#q4-1-rewrite-the-system-to-antonomous-form" title="Permalink to this heading">#</a></h2>
+<p>We see that in the function, there are some terms realted to <em>t</em>. Now we define a new vector:</p>
+<div class="math notranslate nohighlight">
+\[
+x_1 = U_c(t), x_2 = t
+\]</div>
+<p>then the new vecotr:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x = \begin{pmatrix}
+x_1 \\
+x_2
+\end{pmatrix}
+\end{split}\]</div>
+<p><strong>Finally we get the autonomous ODE:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\dot{x}_1 = \frac{1}{RC}\left(\cos(100\pi x_2) - x_1\right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\dot{x}_2 = 1
+\]</div>
+<p>with initial value</p>
+<div class="math notranslate nohighlight">
+\[
+x_1(0) = U_0(0) = 1, \qquad x_2(0) = 0
+\]</div>
 </section>
-<section id="plot-6-phase-plots-crank-nicolson">
-<h3>Plot 6 : Phase Plots (Crank-Nicolson)<a class="headerlink" href="#plot-6-phase-plots-crank-nicolson" title="Permalink to this heading">#</a></h3>
-<p><img alt=" Plot 8 : Phase Plots " src="_images/plot8.png" /></p>
+<section id="q4-2-numerically-solve-the-problem-with-3-methods">
+<h2>Q4.2 : Numerically solve the problem with 3 methods<a class="headerlink" href="#q4-2-numerically-solve-the-problem-with-3-methods" title="Permalink to this heading">#</a></h2>
+<p>In order to compare the methods: Explicit Euler, Implicit Euler and Crank Nilcolson method, add three head files: <code class="docutils literal notranslate"><span class="pre">RCRHC.hpp</span></code> <code class="docutils literal notranslate"><span class="pre">RCCircuit.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">RHS.hpp</span></code></p>
+<p>Modify the previous main document, change the model from mass-spring to RC circuit. The main files are <code class="docutils literal notranslate"><span class="pre">xian.cpp</span></code> <code class="docutils literal notranslate"><span class="pre">yin.cpp</span></code> and <code class="docutils literal notranslate"><span class="pre">cn.cpp</span></code>. After getting the <code class="docutils literal notranslate"><span class="pre">csv</span></code> files, plot and analyze.</p>
+<p><strong>Attention</strong>: Here we choose different step N = {50, 100, 200,300} and T = 0.2 to compare. In this case, the explicit method is not stable and the numerical solution blows up. So we put explicit euler method seperately and add log-log plot to see the error.</p>
 </section>
+<section id="plot">
+<h2>Plot<a class="headerlink" href="#plot" title="Permalink to this heading">#</a></h2>
+<p><strong>Explicit Euler method in different time step</strong> (BLOW UP)</p>
+<p><img alt="ex50" src="_images/ex50.png" /></p>
+<p><img alt="ex100" src="_images/ex100.png" /></p>
+<p><img alt="ex200" src="_images/ex200.png" /></p>
+<p><img alt="ex300" src="_images/ex300.png" /></p>
+<p><strong>Implicit Euler vs Crank Nicolson in different time step</strong></p>
+<p><img alt="in50" src="_images/in_cn50.png" /></p>
+<p><img alt="in100" src="_images/in_cn100.png" /></p>
+<p><img alt="in200" src="_images/in_cn200.png" /></p>
+<p><img alt="in300" src="_images/in_cn300.png" /></p>
+<p><strong>Error Analysis</strong></p>
+<p><img alt="error50" src="_images/error50.png" /></p>
+<p><img alt="error100" src="_images/error100.png" /></p>
+<p><img alt="error200" src="_images/error200.png" /></p>
+<p><img alt="error300" src="_images/error300.png" /></p>
 </section>
-<section id="q3-comparison-of-the-four-time-stepping-methods">
-<h2>Q3 : Comparison of the Four Time-Stepping Methods<a class="headerlink" href="#q3-comparison-of-the-four-time-stepping-methods" title="Permalink to this heading">#</a></h2>
-<p>Now we compare 4 methods in previously mentioned:</p>
-<p><strong>Explicit Euler</strong></p>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>The method is unstable for oscillatory systems.</p></li>
-<li><p>For moderate or even small time-steps, the numerical orbit in the phase plane spirals outward, corresponding to an artificial gain of energy.</p></li>
-<li><p>Larger time-steps lead to very rapid divergence.</p></li>
+<li><p>Explicit Euler is unstable for the RC circuit.
+The step sizes
+Δ𝑡=𝑇/𝑁 violate the stability limit Δ𝑡&lt;2𝑅𝐶, leading to rapid blow-up.</p></li>
+<li><p>Implicit Euler is stable but overly damped.
+As an A-stable first-order method, it does not diverge, but it introduces strong numerical dissipation.</p></li>
+<li><p>Crank–Nicolson gives the best results.
+It is A-stable, second-order accurate, and preserves oscillation amplitude without artificial damping.</p></li>
+<li><p><strong>Convergence behavior:</strong>
+Explicit Euler → 1st order (unstable here)
+Implicit Euler → 1st order (stable but dissipative)
+Crank–Nicolson → 2nd order (accurate and stable)</p></li>
 </ul>
-<p><strong>Improved Euler</strong></p>
-<ul class="simple">
-<li><p>Shows second-order accuracy and significantly better behavior.</p></li>
-<li><p>The phase curves stay close to a circle, even for larger time-steps.</p></li>
-<li><p>There is still a small drift, but the energy error remains bounded and does not grow dramatically like in Explicit Euler.</p></li>
-</ul>
-<p><strong>Implicit Euler</strong></p>
-<ul class="simple">
-<li><p>Always stable, regardless of time-step size.</p></li>
-<li><p>However, the solution exhibits numerical damping: the phase orbit spirals inward, meaning the method artificially removes energy from the system.</p></li>
-</ul>
-<p><strong>Crank–Nicolson</strong></p>
-<ul class="simple">
-<li><p>It is the one given the best results. Always stable, and energy-preserving method for linear oscillatory systems.</p></li>
-<li><p>The phase plots remain almost perfectly circular for all tested time-steps.</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>In General: 
-For oscillatory systems -- the mass–spring model, Crank–Nicolson provides the most physically accurate long-time behavior, while Explicit Euler is the worst method.
-</pre></div>
-</div>
+<p><strong>Overall:</strong>
+For this stiff RC system, Crank–Nicolson is the best method.</p>
 </section>
 </section>
 
@@ -449,15 +464,6 @@ For oscillatory systems -- the mass–spring model, Crank–Nicolson provides th
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="ex17.2.2.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Exercise 17.2.2</p>
-      </div>
-    </a>
 </div>
                 </footer>
               
@@ -474,19 +480,11 @@ For oscillatory systems -- the mass–spring model, Crank–Nicolson provides th
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-overall-process">Q1 : Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-plot">Q1 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-time-evolution-implicit-euler">Plot 5 : Time Evolution (implicit euler)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-plots-implicit-euler">Plot 6 : Phase Plots (implicit euler)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-overall-process">Q2 : Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-plot">Q2 : Plot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-time-evolution-crank-nicolson">Plot 5 : Time Evolution (Crank-Nicolson)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-plots-crank-nicolson">Plot 6 : Phase Plots (Crank-Nicolson)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-comparison-of-the-four-time-stepping-methods">Q3 : Comparison of the Four Time-Stepping Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-question-review">Q4: Question Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-1-rewrite-the-system-to-antonomous-form">Q4.1 : Rewrite the system to antonomous form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-2-numerically-solve-the-problem-with-3-methods">Q4.2 : Numerically solve the problem with 3 methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 
