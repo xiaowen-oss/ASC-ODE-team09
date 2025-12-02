@@ -26,20 +26,15 @@ void LegendrePolynomials(int n, T x, std::vector<T>& P) {
     // we use T to make sure we don't loose decimals
 }
 int main() {
-    int N_order = 5;  // we want P5
-    std::vector< AutoDiff<1> > P; // to save the polynomials
+    int N_order = 5;
+    std::vector< AutoDiff<1> > P;
 
     for (double val = -1.0; val <= 1.001; val += 0.02) {
         AutoDiff<1> x = Variable<0>(val);
         LegendrePolynomials(N_order, x, P);
 
-        std::cout << val;
-
-        for (int k = 0; k <= N_order; ++k) {
-            std::cout << " " << P[k].value() << " " << P[k].deriv()[0]; // saving all polyomials and its derivatives
-        }
-    
-        std::cout << std::endl;
+        std::cout << val << " " << P[5].value() << " " << P[5].deriv()[0] << std::endl;
     }
+
     return 0;
 }

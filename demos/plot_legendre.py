@@ -1,25 +1,29 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 1. Cargar los datos del archivo que generó C++
-# Asumimos columnas: x, P5(x), P5'(x)
 data = np.loadtxt('legendre_data.txt')
 x = data[:, 0]
-y_val = data[:, 1]
-y_deriv = data[:, 2]
 
-plt.figure(figsize=(10, 6))
+for k in range(6):
+    col_val = 1 + 2 * k  # P_k is in column 1 + 2*k
+    col_deriv = 2 + 2 * k  # P'_k is in columns 2 + 2*k
+    
+    y_val = data[:, col_val]
+    y_deriv = data[:, col_deriv]
 
-plt.plot(x, y_val, label=r'$P_5(x)$ (Polynomial)', color='blue', linewidth=2)
+    plt.figure(figsize=(8, 5))
+    
+    plt.plot(x, y_val, label=f'$P_{k}(x)$ (Polynomial)', color='blue', linewidth=2)
+    plt.plot(x, y_deriv, label=f"$P'_{k}(x)$ (Derivative)", color='red', linestyle='--')
+    
+    plt.title(f'Legendre Polynomial Degree {k}')
+    plt.xlabel('x')
+    plt.ylabel('Value')
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.axhline(0, color='black', linewidth=0.8)
 
-plt.plot(x, y_deriv, label=r"$P'_5(x)$ (Derivative)", color='red', linestyle='--')
-
-plt.title('Legendre Polynomial Order 5 and its Derivative')
-plt.xlabel('x')
-plt.ylabel('Value')
-plt.grid(True, alpha=0.3)
-plt.legend()
-plt.axhline(0, color='black', linewidth=0.8)
-
-plt.savefig('legendre_plot.png')
-print("Plot saved as 'legendre_plot.png'")
+    filename = f'legendre_deg{k}.png'
+    plt.savefig(filename)
+    
+    plt.close()
