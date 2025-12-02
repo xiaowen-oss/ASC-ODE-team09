@@ -1,4 +1,13 @@
-add_executable (test_mass_spring mass_spring.cpp)
+cmake_minimum_required(VERSION 3.15)
+
+project(MassSpring LANGUAGES CXX)
+
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+
+
+add_executable (test_mass_spring mass_spring.cpp ${CMAKE_SOURCE_DIR}/src)
+)
 
 
 find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
@@ -9,5 +18,7 @@ execute_process(
 list(APPEND CMAKE_PREFIX_PATH "${PYBIND11_DIR}")
 find_package(pybind11 CONFIG REQUIRED)
 
-pybind11_add_module(mass_spring bind_mass_spring.cpp)
+
+
+pybind11_add_module(mass_spring bind_mass_spring.cpp ${CMAKE_SOURCE_DIR}/src)
 

@@ -1,4 +1,14 @@
-# Exercise 2 (Due 01.12.2025)
+# Exercise 3 (Due 08.12.2025)
+
+
+20题
+第一问，配置并运行左右文件
+我改了：list里面加第一行，让cmake以新版本运行
+
+第二行，告诉 CMake 这是一个 C++ 项目。
+第三行，添加其他文件夹下的hpp
+
+
 *All documents we mentioned can be found in branch "Exercise2".*
 
 
