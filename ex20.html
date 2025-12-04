@@ -62,8 +62,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ex20';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -343,62 +341,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17-4-1">Exercise 17.4.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-question-review">Q4: Question Review</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-1-rewrite-the-system-to-antonomous-form">Q4.1 : Rewrite the system to antonomous form</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-2-numerically-solve-the-problem-with-3-methods">Q4.2 : Numerically solve the problem with 3 methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-18-4">Exercise 18.4</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-q2-implementation-of-autodiff-class-overall-process">Q1 &amp; Q2: Implementation of AutoDiff Class. Overall Process.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-legendre-polynomials-overall-process">Q3: Legendre- Polynomials. Overall process.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-plots">Q3: Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-legendre-polynomials-orders-0-to-5">Plot 1: Legendre-Polynomials (Orders 0 to 5)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-legendre-polynomials-derivatives-orders-1-to-5">Plot 2: Legendre-Polynomials Derivatives (Orders 1 to 5)</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-conclusion">Q3: Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-18-5-autodiff-pendulum">Exercise 18.5 — AutoDiff Pendulum</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-process">Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-of-pendulum-explicit-euler"><strong>Plot 1 – Time Evolution of Pendulum (Explicit Euler)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plot-explicit-euler"><strong>Plot 2 – Phase Plot (Explicit Euler)</strong></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-19-4-comparison-of-rk2-rk4-gausslegendre-s-2-and-radau-iia-s-2">Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Overall Process</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-0-01">Plot 1 — Time Evolution (τ = 0.01)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-time-evolution-0-5">Plot 2 — Time Evolution (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-2-0">Plot 3 — Time Evolution (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-portraits-0-01">Plot 4 — Phase Portraits (τ = 0.01)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-methods-produce-nearly-perfect-circular-phase-trajectories-br-this-corresponds-to-almost-energy-conserving-behavior-at-small-alt-text">All methods produce nearly perfect circular phase trajectories.<br/>
-This corresponds to almost energy-conserving behavior at small τ.
-</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-phase-portraits-0-5">Plot 5 — Phase Portraits (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-portraits-2-0">Plot 6 — Phase Portraits (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-7-error-vs-time">Plot 7 — Error vs Time</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-0-1">τ = 0.01 and τ = 0.1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">τ = 0.5</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-2-0">τ = 1.0 and τ = 2.0</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicitrungekutta-implementation">ExplicitRungeKutta implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rk2-explicit-heun">RK2 (Explicit Heun)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rk4-classical-explicit">RK4 (Classical Explicit)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gausslegendre-irk-s-2">Gauss–Legendre IRK (s=2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radau-iia-irk-s-2">Radau IIA IRK (s=2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
 </ul>
 </li>
 </ul>
@@ -414,394 +359,113 @@ This corresponds to almost energy-conserving behavior at small τ.
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercise-3-due-08-12-2025">
 <h1>Exercise 3 (Due 08.12.2025)<a class="headerlink" href="#exercise-3-due-08-12-2025" title="Permalink to this heading">#</a></h1>
-<p>20题
-第一问，配置并运行左右文件
-我改了：list里面加第一行，让cmake以新版本运行</p>
-<p>第二行，告诉 CMake 这是一个 C++ 项目。
-第三行，添加其他文件夹下的hpp</p>
-<p><em>All documents we mentioned can be found in branch “Exercise2”.</em></p>
-<section id="exercise-17-4-1">
-<h2>Exercise 17.4.1<a class="headerlink" href="#exercise-17-4-1" title="Permalink to this heading">#</a></h2>
-<section id="q4-question-review">
-<h3>Q4: Question Review<a class="headerlink" href="#q4-question-review" title="Permalink to this heading">#</a></h3>
-<p>We already have the main funtion</p>
-<div class="math notranslate nohighlight">
-\[
-U_c(t) + RC\,\frac{dU_C}{dt} = U_0(t)
-\]</div>
-<p>with initial condition: <span class="math notranslate nohighlight">\(U_c(0) = U_0(0)\)</span></p>
-<p>and assumption:</p>
+<p>*All documents we mentioned can be found in branch “Exercise3”.</p>
+<section id="exercise-20-4">
+<h2>Exercise 20.4<a class="headerlink" href="#exercise-20-4" title="Permalink to this heading">#</a></h2>
+<section id="q1-test-the-examples">
+<h3>Q1: Test the examples<a class="headerlink" href="#q1-test-the-examples" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(U_c(t)\)</span> is the unknown quantity</p></li>
-<li><p><span class="math notranslate nohighlight">\(U_0(t) = cos(100*pi*t)\)</span></p></li>
-<li><p>R = 100</p></li>
-<li><p>C = <span class="math notranslate nohighlight">\( 10 ^{-6}\)</span></p></li>
+<li><p>Update the upsteam and get folder <code class="docutils literal notranslate"><span class="pre">mechsystem</span></code></p></li>
+<li><p>Modify Cmakelist:</p></li>
 </ol>
-</section>
-<section id="q4-1-rewrite-the-system-to-antonomous-form">
-<h3>Q4.1 : Rewrite the system to antonomous form<a class="headerlink" href="#q4-1-rewrite-the-system-to-antonomous-form" title="Permalink to this heading">#</a></h3>
-<p>We see that in the function, there are some terms realted to <em>t</em>. Now we define a new vector:</p>
-<div class="math notranslate nohighlight">
-\[
-x_1 = U_c(t), x_2 = t
-\]</div>
-<p>then the new vecotr:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-x = \begin{pmatrix}
-x_1 \\
-x_2
-\end{pmatrix}
-\end{split}\]</div>
-<p><strong>Finally we get the autonomous ODE:</strong></p>
-<div class="math notranslate nohighlight">
-\[
-\dot{x}_1 = \frac{1}{RC}\left(\cos(100\pi x_2) - x_1\right)
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\dot{x}_2 = 1
-\]</div>
-<p>with initial value</p>
-<div class="math notranslate nohighlight">
-\[
-x_1(0) = U_0(0) = 1, \qquad x_2(0) = 0
-\]</div>
-</section>
-<section id="q4-2-numerically-solve-the-problem-with-3-methods">
-<h3>Q4.2 : Numerically solve the problem with 3 methods<a class="headerlink" href="#q4-2-numerically-solve-the-problem-with-3-methods" title="Permalink to this heading">#</a></h3>
-<p>In order to compare the methods: Explicit Euler, Implicit Euler and Crank Nilcolson method, add three head files: <code class="docutils literal notranslate"><span class="pre">RCRHC.hpp</span></code> <code class="docutils literal notranslate"><span class="pre">RCCircuit.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">RHS.hpp</span></code></p>
-<p>Modify the previous main document, change the model from mass-spring to RC circuit. The main files are <code class="docutils literal notranslate"><span class="pre">xian.cpp</span></code> <code class="docutils literal notranslate"><span class="pre">yin.cpp</span></code> and <code class="docutils literal notranslate"><span class="pre">cn.cpp</span></code>. After getting the <code class="docutils literal notranslate"><span class="pre">csv</span></code> files, plot and analyze.</p>
-<p><strong>Attention</strong>: Here we choose fixed step N = {50, 100, 200,300} and T = 0.2 to compare. In this case, the explicit method is not stable and the numerical solution blows up. So we put explicit euler method seperately and add log-log plot to see the error.</p>
-</section>
-<section id="plot">
-<h3>Plot<a class="headerlink" href="#plot" title="Permalink to this heading">#</a></h3>
-<p><strong>Explicit Euler method in different time step</strong> (BLOW UP)</p>
-<p><img alt="ex50" src="_images/ex50.png" /></p>
-<p><img alt="ex100" src="_images/ex100.png" /></p>
-<p><img alt="ex200" src="_images/ex200.png" /></p>
-<p><img alt="ex300" src="_images/ex300.png" /></p>
-<p><strong>Implicit Euler vs Crank Nicolson in different time step</strong></p>
-<p><img alt="in50" src="_images/in_cn50.png" /></p>
-<p><img alt="in100" src="_images/in_cn100.png" /></p>
-<p><img alt="in200" src="_images/in_cn200.png" /></p>
-<p><img alt="in300" src="_images/in_cn300.png" /></p>
-<p><strong>Error Analysis</strong></p>
-<p><img alt="error50" src="_images/error50.png" /></p>
-<p><img alt="error100" src="_images/error100.png" /></p>
-<p><img alt="error200" src="_images/error200.png" /></p>
-<p><img alt="error300" src="_images/error300.png" /></p>
-</section>
-<section id="conclusion">
-<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Explicit Euler is unstable for the RC circuit.
-The step sizes
-Δ𝑡=𝑇/𝑁 violate the stability limit Δ𝑡&lt;2𝑅𝐶, leading to rapid blow-up.</p></li>
-<li><p>Implicit Euler is stable but overly damped.
-As an A-stable first-order method, it does not diverge, but it introduces strong numerical dissipation.</p></li>
-<li><p>Crank–Nicolson gives the best results.
-It is A-stable, second-order accurate, and preserves oscillation amplitude without artificial damping.</p></li>
-<li><p><strong>Convergence behavior:</strong>
-Explicit Euler → 1st order (unstable here)
-Implicit Euler → 1st order (stable but dissipative)
-Crank–Nicolson → 2nd order (accurate and stable)</p></li>
-</ul>
-<p><strong>Overall:</strong>
-For this stiff RC system, Crank–Nicolson is the best method.</p>
-</section>
-</section>
-<section id="exercise-18-4">
-<h2>Exercise 18.4<a class="headerlink" href="#exercise-18-4" title="Permalink to this heading">#</a></h2>
-<section id="q1-q2-implementation-of-autodiff-class-overall-process">
-<h3>Q1 &amp; Q2: Implementation of AutoDiff Class. Overall Process.<a class="headerlink" href="#q1-q2-implementation-of-autodiff-class-overall-process" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>Extended the provided <code class="docutils literal notranslate"><span class="pre">autodiff.hpp</span></code> library to include additional useful operators. Specifically, subtraction (<code class="docutils literal notranslate"><span class="pre">operator-</span></code>), negative sign operator and division (<code class="docutils literal notranslate"><span class="pre">operator/</span></code>) by applying the quotient rule.</p></li>
-<li><p>Added some more mathematical functions like <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">exp</span></code> and <code class="docutils literal notranslate"><span class="pre">log</span></code> that accept <code class="docutils literal notranslate"><span class="pre">AutoDiff</span></code> variables and computed correctly its derivatives by implementing the chain rule.</p></li>
-<li><p>Verified the correctness of these new operators using <code class="docutils literal notranslate"><span class="pre">demo_autodiff_new.cpp</span></code>.</p></li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="q3-legendre-polynomials-overall-process">
-<h3>Q3: Legendre- Polynomials. Overall process.<a class="headerlink" href="#q3-legendre-polynomials-overall-process" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Implemented the recursive formula to compute Legendre-polynomials. Since our <code class="docutils literal notranslate"><span class="pre">AutoDiff</span></code> class supports templates, the same function calculates both values and derivatives:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">T</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+<p>① First, add cmake version, project name and standard</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
+<span class="n">project</span><span class="p">(</span><span class="n">mechsystem</span><span class="p">)</span>
+<span class="nb">set</span> <span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-<li><p>Created <code class="docutils literal notranslate"><span class="pre">test_legendre.cpp</span></code> to generate data (with step 0.02) for Legendre-polynomials up to order <span class="math notranslate nohighlight">\(n=5\)</span> in the interval <span class="math notranslate nohighlight">\([-1, 1]\)</span>.</p></li>
-<li><p>Created the python script <code class="docutils literal notranslate"><span class="pre">plot_combined.py</span></code> to visualize the family of polynomials and their derivatives.</p></li>
+<p>② Then, include the head file in the root ‘src’</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable (test_mass_spring mass_spring.cpp ${CMAKE_SOURCE_DIR}/src)
+</pre></div>
+</div>
+<p>③ In the end, use pybind to create python module</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pybind11_add_module(mass_spring
+    bind_mass_spring.cpp
+)
+
+target_include_directories(mass_spring PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Build and compile in <code class="docutils literal notranslate"><span class="pre">.venv</span></code> enviroment. (Since we install python in .venv enviroment in case of extra conflicts)</p></li>
 </ol>
-</section>
-<section id="q3-plots">
-<h3>Q3: Plots<a class="headerlink" href="#q3-plots" title="Permalink to this heading">#</a></h3>
-<section id="plot-1-legendre-polynomials-orders-0-to-5">
-<h4>Plot 1: Legendre-Polynomials (Orders 0 to 5)<a class="headerlink" href="#plot-1-legendre-polynomials-orders-0-to-5" title="Permalink to this heading">#</a></h4>
-<p><img alt="Legendre Polynomials Family" src="legendre_combined_poly.png" /></p>
-</section>
-<section id="plot-2-legendre-polynomials-derivatives-orders-1-to-5">
-<h4>Plot 2: Legendre-Polynomials Derivatives (Orders 1 to 5)<a class="headerlink" href="#plot-2-legendre-polynomials-derivatives-orders-1-to-5" title="Permalink to this heading">#</a></h4>
-<p>Note: Derivative of the Polynomial or order 0 is not shown because its value is 0, so plotting it would make the graphic much smaller to show that horizontal line at 0 making it difficult to see the other polynomials derivative values.</p>
-<p><img alt="Legendre Derivatives Family" src="legendre_combined_deriv.png" /></p>
-</section>
-</section>
-<section id="q3-conclusion">
-<h3>Q3: Conclusion<a class="headerlink" href="#q3-conclusion" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>As seen in Plot 1, all polynomials strictly satisfy the theoretical condition <span class="math notranslate nohighlight">\(P_n(1) = 1\)</span>, confirming the numerical stability of the recursive implementation.</p></li>
-<li><p>Parity and Symmetry: The plots show the parity properties of Legendre-polynomials:</p>
-<ul>
-<li><p>Even orders (<span class="math notranslate nohighlight">\(P_0, P_2, P_4\)</span>) are symmetric about the Y-axis (even functions).</p></li>
-<li><p>Odd orders (<span class="math notranslate nohighlight">\(P_1, P_3, P_5\)</span>) are antisymmetric (odd functions), satisfying <span class="math notranslate nohighlight">\(P_n(-1) = -1\)</span>.</p></li>
-</ul>
-</li>
-<li><p>Derivative Behavior: Plot 2 shows that derivatives oscillate with increasing amplitude near the boundaries. For the order 5 polynomial, the derivative at <span class="math notranslate nohighlight">\(x=1\)</span> take the value 15 which is the theoretical prediction <span class="math notranslate nohighlight">\(P'_n(1) = \frac{n(n+1)}{2}\)</span>.</p></li>
-<li><p>The derivative inverts the parity: for an even polynomial, <span class="math notranslate nohighlight">\(P'_n\)</span> becomes an odd function (crossing zero at the origin) and vice versa.</p></li>
-</ul>
-</section>
-</section>
-<section id="exercise-18-5-autodiff-pendulum">
-<h2>Exercise 18.5 — AutoDiff Pendulum<a class="headerlink" href="#exercise-18-5-autodiff-pendulum" title="Permalink to this heading">#</a></h2>
-<section id="overall-process">
-<h3>Overall Process<a class="headerlink" href="#overall-process" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>Adapted the C++ file <code class="docutils literal notranslate"><span class="pre">ex18_5.cpp</span></code> to simulate the nonlinear pendulum using</p></li>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># activate the enviroment
+source .venv/bin/activate
+
+# build file
+mkdir build
+cd build
+
+# use venv Python to open CMake
+cmake -DPython_EXECUTABLE=$(which python) ..
+
+# Compile 
+cmake ..
+make -j
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>We can test the exmaple files:</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[
-\dot{\theta} = \omega,\qquad 
-\dot{\omega} = -\frac{g}{L}\sin(\theta)
-\]</div>
-<p>with <strong>AutoDiff-based Jacobian evaluation</strong>.</p>
-<ol class="arabic simple" start="2">
-<li><p>Generated output trajectory file:<br />
-<strong><code class="docutils literal notranslate"><span class="pre">ex18_5.csv</span></code></strong></p></li>
-<li><p>Created Python scripts to plot:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pendulum_time.png</span></code> — Time evolution of θ(t) and ω(t)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pendulum_phase.png</span></code> — Phase portrait (θ vs ω)</p></li>
-</ul>
-</li>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">test_mass_spring</span> <span class="o">&gt;</span> <span class="n">test</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><a class="reference download internal" download="" href="_downloads/7831a8108362ab530c83ec67f0ec589d/test.txt"><span class="xref download myst">Test1: The result link</span></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">ASC</span><span class="o">-</span><span class="n">ODE</span><span class="o">-</span><span class="n">team09</span><span class="o">/</span><span class="n">mechsystem</span>
+
+<span class="n">PYTHONPATH</span><span class="o">=../</span><span class="n">build</span><span class="o">/</span><span class="n">mechsystem</span> <span class="n">python3</span> <span class="n">test_mass_spring</span><span class="o">.</span><span class="n">py</span> <span class="o">&gt;</span><span class="n">test2</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><a class="reference download internal" download="" href="_downloads/c86da4c3878410d9b09da8b07a7bd4b7/test2.txt"><span class="xref download myst">Test2 : The result link</span></a></p>
+<ol class="arabic simple" start="5">
+<li><p>We can also test the 3D version according to <code class="docutils literal notranslate"><span class="pre">mass_spring.ipynb</span></code></p></li>
 </ol>
+<p>① Install pythreejs and activate</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pythreejs</span>
+
+<span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">enable</span> <span class="o">--</span><span class="n">py</span> <span class="n">widgetsnbextension</span>
+<span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">enable</span> <span class="o">--</span><span class="n">py</span> <span class="n">pythreejs</span>
+</pre></div>
+</div>
+<p>② Here we run directly in vscode. Pay attention: change the local repo</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../build/mechsystem&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><video src="_images/test1.mp4" title="test 3D version"><a href="_images/test1.mp4">test 3D version</a></video></p>
 </section>
-<hr class="docutils" />
-<section id="plots">
-<h3>Plots<a class="headerlink" href="#plots" title="Permalink to this heading">#</a></h3>
-<section id="plot-1-time-evolution-of-pendulum-explicit-euler">
-<h4><strong>Plot 1 – Time Evolution of Pendulum (Explicit Euler)</strong><a class="headerlink" href="#plot-1-time-evolution-of-pendulum-explicit-euler" title="Permalink to this heading">#</a></h4>
-<p><img alt="Time Evolution" src="ex18_5_plot.png" /></p>
-<p>This plot shows the temporal evolution of the pendulum state variables:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\( \theta(t) \)\)</span> : angular displacement</p></li>
-<li><p><span class="math notranslate nohighlight">\(\( \omega(t) \)\)</span>: angular velocity</p></li>
-</ul>
-<p>Euler integration introduces numerical energy growth over time.</p>
-</section>
-<hr class="docutils" />
-<section id="plot-2-phase-plot-explicit-euler">
-<h4><strong>Plot 2 – Phase Plot (Explicit Euler)</strong><a class="headerlink" href="#plot-2-phase-plot-explicit-euler" title="Permalink to this heading">#</a></h4>
-<p><img alt="Phase Plot" src="phase_ex18_5.png" /></p>
-<p>This is the θ–ω phase portrait of the nonlinear pendulum.<br />
-A true physical pendulum would trace closed orbits (constant energy), but explicit Euler causes energy to drift.</p>
-</section>
-</section>
-<hr class="docutils" />
-<section id="id1">
-<h3>Conclusion<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>The explicit Euler method behaves <strong>numerically unstable</strong> for oscillatory systems like the pendulum.</p></li>
-<li><p>The <strong>time evolution plot</strong> shows that both  <span class="math notranslate nohighlight">\(\( \theta(t) \)\)</span> and <span class="math notranslate nohighlight">\(\( \omega(t) \)\)</span> exhibit <strong>increasing amplitude</strong>, indicating energy gain.</p></li>
-<li><p>The <strong>phase portrait</strong> spirals outward instead of forming closed loops:</p>
-<ul>
-<li><p>This means <strong>energy is not conserved</strong> numerically.</p></li>
-<li><p>The trajectory grows unphysically over time.</p></li>
-</ul>
-</li>
-<li><p>AutoDiff successfully computes Jacobians for the nonlinear pendulum model.</p></li>
-</ul>
-</section>
-</section>
-<section id="exercise-19-4-comparison-of-rk2-rk4-gausslegendre-s-2-and-radau-iia-s-2">
-<h2>Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)<a class="headerlink" href="#exercise-19-4-comparison-of-rk2-rk4-gausslegendre-s-2-and-radau-iia-s-2" title="Permalink to this heading">#</a></h2>
-<section id="id2">
-<h3>Overall Process<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p><strong>Implementation of a generic ExplicitRungeKutta time-stepper</strong></p>
-<ul class="simple">
-<li><p>Created <code class="docutils literal notranslate"><span class="pre">ExplicitRungeKutta</span></code> class in <code class="docutils literal notranslate"><span class="pre">explicitRK.hpp</span></code> that takes an arbitrary <strong>Butcher tableau</strong><br />
-((A,b,c)) with <strong>strictly lower triangular</strong> (A) (explicit RK).</p></li>
-</ul>
-</li>
-<li><p><strong>Definition of specific Butcher tableaus</strong></p>
-<ul class="simple">
-<li><p>Added setup routines for</p>
-<ul>
-<li><p><strong>RK2 (Heun)</strong></p></li>
-<li><p><strong>RK4 (classical 4th-order)</strong></p></li>
-<li><p><strong>Gauss–Legendre IRK (s=2)</strong></p></li>
-<li><p><strong>Radau IIA IRK (s=2)</strong>.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Comparison driver</strong></p>
-<ul class="simple">
-<li><p>Implemented <code class="docutils literal notranslate"><span class="pre">Rk_compare.cpp</span></code> using the ASC-ODE framework and the above time-steppers.</p></li>
-<li><p>For each method and each τ, we solve the mass–spring system on ([0,8\pi]) and write CSV files<br />
-<code class="docutils literal notranslate"><span class="pre">ex19_4_rk2.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">ex19_4_rk4.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">ex19_4_irk_gauss2.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">ex19_4_radau2a.csv</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>Postprocessing / plotting</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_RK_methods.py</span></code>: time evolution and phase plots for each τ.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_RK_errors.py</span></code>: error vs time, using the exact solution (y(t)=\cos t), (v(t)=-\sin t).</p></li>
-</ul>
-</li>
-</ol>
-</section>
-</section>
-<hr class="docutils" />
-<section id="id3">
-<h2>Plots<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p>Below we summarize the key graphical outputs (only representative examples are shown; full set available in the repository).</p>
-</section>
-<hr class="docutils" />
-<section id="plot-1-time-evolution-0-01">
-<h2>Plot 1 — Time Evolution (τ = 0.01)<a class="headerlink" href="#plot-1-time-evolution-0-01" title="Permalink to this heading">#</a></h2>
-<p>All four methods overlap almost perfectly.<br />
-Small step size ⇒ high accuracy for all methods; the oscillation keeps correct amplitude and phase.</p>
-</section>
-<section id="id4">
-<h2><img alt=" " src="time_evolution_tau_0.01.png" /><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="plot-2-time-evolution-0-5">
-<h2>Plot 2 — Time Evolution (τ = 0.5)<a class="headerlink" href="#plot-2-time-evolution-0-5" title="Permalink to this heading">#</a></h2>
-<p>Differences become visible:</p>
-<ul class="simple">
-<li><p><strong>RK2</strong> starts to lose phase accuracy and amplitude.</p></li>
-<li><p><strong>RK4</strong> performs better, but a small phase drift appears.</p></li>
-<li><p><strong>Gauss–Legendre</strong> and <strong>Radau IIA</strong> remain stable and stay close to the true oscillation.
-<img alt="alt text" src="time_evolution_tau_0.5.png" /></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="plot-3-time-evolution-2-0">
-<h2>Plot 3 — Time Evolution (τ = 2.0)<a class="headerlink" href="#plot-3-time-evolution-2-0" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>RK2</strong> becomes completely unstable and diverges.</p></li>
-<li><p><strong>RK4</strong> already shows strong distortion.</p></li>
-<li><p><strong>Radau IIA</strong> heavily damps the oscillation (L-stable behavior).</p></li>
-<li><p><strong>Gauss–Legendre</strong> remains bounded but with reduced accuracy due to the very large τ.
-<img alt="alt text" src="time_evolution_tau_2.0.png" /></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="plot-4-phase-portraits-0-01">
-<h2>Plot 4 — Phase Portraits (τ = 0.01)<a class="headerlink" href="#plot-4-phase-portraits-0-01" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="all-methods-produce-nearly-perfect-circular-phase-trajectories-br-this-corresponds-to-almost-energy-conserving-behavior-at-small-alt-text">
-<h2>All methods produce nearly perfect circular phase trajectories.<br />
-This corresponds to almost energy-conserving behavior at small τ.
-<img alt="alt text" src="phase_plot_tau_0.1.png" /><a class="headerlink" href="#all-methods-produce-nearly-perfect-circular-phase-trajectories-br-this-corresponds-to-almost-energy-conserving-behavior-at-small-alt-text" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="plot-5-phase-portraits-0-5">
-<h2>Plot 5 — Phase Portraits (τ = 0.5)<a class="headerlink" href="#plot-5-phase-portraits-0-5" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>RK2</strong> spirals outward ⇒ artificial energy gain.</p></li>
-<li><p><strong>RK4</strong>, <strong>Gauss–2</strong>, and <strong>Radau IIA</strong> stay close to the exact circle; trajectories remain bounded.
-<img alt="alt text" src="time_evolution_tau_0.5.png" /></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="plot-6-phase-portraits-2-0">
-<h2>Plot 6 — Phase Portraits (τ = 2.0)<a class="headerlink" href="#plot-6-phase-portraits-2-0" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>RK2</strong> spirals dramatically outward (complete loss of stability).</p></li>
-<li><p><strong>RK4</strong> still oscillatory but clearly distorted.</p></li>
-<li><p><strong>Gauss–Legendre</strong> stays bounded.</p></li>
-<li><p><strong>Radau IIA</strong> spirals inward due to numerical damping (L-stability).
-<img alt="alt text" src="time_evolution_tau_2.0.png" /></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="plot-7-error-vs-time">
-<h2>Plot 7 — Error vs Time<a class="headerlink" href="#plot-7-error-vs-time" title="Permalink to this heading">#</a></h2>
-<p>For each τ, the error is computed as<br />
-[
-\text{err}(t) = \big|,(y_{\text{num}}(t),v_{\text{num}}(t)) - (\cos t,-\sin t),\big|.
-]</p>
-<section id="and-0-1">
-<h3>τ = 0.01 and τ = 0.1<a class="headerlink" href="#and-0-1" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>RK2</strong>: small but steadily growing error.</p></li>
-<li><p><strong>RK4</strong>, <strong>Gauss–2</strong>, <strong>Radau IIA</strong>: extremely small errors; curves almost coincide.
-<img alt="alt text" src="error_tau_0.01.png" />
-<img alt="alt text" src="error_tau_1.0.png" /></p></li>
-</ul>
-</section>
-<section id="id5">
-<h3>τ = 0.5<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>RK2</strong>: error of order <strong>O(1)</strong> over the time interval.</p></li>
-<li><p><strong>RK4</strong>: mild growth, still acceptable.</p></li>
-<li><p><strong>Gauss–2</strong> and <strong>Radau IIA</strong>: error stays very small and almost bounded.
-<img alt="alt text" src="error_tau_0.5.png" /></p></li>
-</ul>
-</section>
-<section id="and-2-0">
-<h3>τ = 1.0 and τ = 2.0<a class="headerlink" href="#and-2-0" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>RK2</strong>: error grows catastrophically (instability).</p></li>
-<li><p><strong>RK4</strong>: significant drift but still bounded.</p></li>
-<li><p><strong>Gauss–Legendre</strong>: stable with moderate error.</p></li>
-<li><p><strong>Radau IIA</strong>: best stability; error remains small even for τ = 2.0.
-<img alt="alt text" src="error_tau_1.0.png" />
-<img alt="alt text" src="error_tau_2.0.png" /></p></li>
-</ul>
-</section>
-</section>
-<hr class="docutils" />
-<section id="conclusions">
-<h2>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this heading">#</a></h2>
-<section id="explicitrungekutta-implementation">
-<h3>ExplicitRungeKutta implementation<a class="headerlink" href="#explicitrungekutta-implementation" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>The generic <code class="docutils literal notranslate"><span class="pre">ExplicitRungeKutta</span></code> time-stepper successfully handles arbitrary explicit Butcher tableaus with a lower triangular (A).</p></li>
-<li><p>RK2 and RK4 are obtained only by providing their coefficients, confirming that the implementation is method-agnostic and reusable.</p></li>
-</ul>
-</section>
-<section id="rk2-explicit-heun">
-<h3>RK2 (Explicit Heun)<a class="headerlink" href="#rk2-explicit-heun" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Second-order accuracy; works well only for small τ.</p></li>
-<li><p>For τ ≥ 0.5, strong phase and amplitude errors accumulate.</p></li>
-<li><p>For τ ≥ 1.0, RK2 becomes numerically unstable for the oscillatory system.</p></li>
-</ul>
-</section>
-<section id="rk4-classical-explicit">
-<h3>RK4 (Classical Explicit)<a class="headerlink" href="#rk4-classical-explicit" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Much better long-time accuracy than RK2.</p></li>
-<li><p>Still not A-stable: for very large τ, phase errors become dominant.</p></li>
-<li><p>Reasonable choice for moderate τ when an explicit scheme is required.</p></li>
-</ul>
-</section>
-<section id="gausslegendre-irk-s-2">
-<h3>Gauss–Legendre IRK (s=2)<a class="headerlink" href="#gausslegendre-irk-s-2" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>A-stable and symplectic.</p></li>
-<li><p>Preserves the qualitative structure of the oscillation very well, even for larger τ.</p></li>
-<li><p>Error remains bounded for all tested step sizes; phase plots stay close to a circle.</p></li>
-</ul>
-</section>
-<section id="radau-iia-irk-s-2">
-<h3>Radau IIA IRK (s=2)<a class="headerlink" href="#radau-iia-irk-s-2" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>L-stable implicit method: damps high-frequency / stiff components.</p></li>
-<li><p>Extremely robust for large τ; the solution does not blow up.</p></li>
-<li><p>Shows numerical damping on this pure oscillatory problem, but has the best stability among all tested methods.</p></li>
-</ul>
+<section id="q2-add-lagragian-constraints">
+<h3>Q2: Add Lagragian constraints<a class="headerlink" href="#q2-add-lagragian-constraints" title="Permalink to this heading">#</a></h3>
+<p>回顾问题
+改了massspring.hpp和bind
+可以用那个cpp打印约束参数，然后分析</p>
+<p>一开始加一个除法运算
+// operator a/b
+template &lt;size_t D&gt;
+Vec<D> operator/(const Vec<D> &amp;v, double s)
+{
+Vec<D> r;
+for (size_t i = 0; i &lt; D; i++)
+r(i) = v(i) / s;
+return r;
+}</p>
+<p>class DistanceConstraint
+{
+public:
+Connector c1;
+Connector c2;
+double rest_length;
+};</p>
+<p>std::vector<DistanceConstraint> m_constraints;</p>
+<p>public:auto &amp; constraints() { return m_constraints;}</p>
+<p>void addDistanceConstraint(const DistanceConstraint &amp;dc)
+{
+m_constraints.push_back(dc);
+}</p>
+<p><video src="_images/test2.mp4" title="test2 3D version"><a href="_images/test2.mp4">test2 3D version</a></video></p>
 </section>
 </section>
 </section>
@@ -861,62 +525,9 @@ This corresponds to almost energy-conserving behavior at small τ.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-17-4-1">Exercise 17.4.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-question-review">Q4: Question Review</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-1-rewrite-the-system-to-antonomous-form">Q4.1 : Rewrite the system to antonomous form</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q4-2-numerically-solve-the-problem-with-3-methods">Q4.2 : Numerically solve the problem with 3 methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-18-4">Exercise 18.4</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-q2-implementation-of-autodiff-class-overall-process">Q1 &amp; Q2: Implementation of AutoDiff Class. Overall Process.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-legendre-polynomials-overall-process">Q3: Legendre- Polynomials. Overall process.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-plots">Q3: Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-legendre-polynomials-orders-0-to-5">Plot 1: Legendre-Polynomials (Orders 0 to 5)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-legendre-polynomials-derivatives-orders-1-to-5">Plot 2: Legendre-Polynomials Derivatives (Orders 1 to 5)</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-conclusion">Q3: Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-18-5-autodiff-pendulum">Exercise 18.5 — AutoDiff Pendulum</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-process">Overall Process</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-of-pendulum-explicit-euler"><strong>Plot 1 – Time Evolution of Pendulum (Explicit Euler)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-phase-plot-explicit-euler"><strong>Plot 2 – Phase Plot (Explicit Euler)</strong></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conclusion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-19-4-comparison-of-rk2-rk4-gausslegendre-s-2-and-radau-iia-s-2">Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Overall Process</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-0-01">Plot 1 — Time Evolution (τ = 0.01)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-time-evolution-0-5">Plot 2 — Time Evolution (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-2-0">Plot 3 — Time Evolution (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-portraits-0-01">Plot 4 — Phase Portraits (τ = 0.01)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-methods-produce-nearly-perfect-circular-phase-trajectories-br-this-corresponds-to-almost-energy-conserving-behavior-at-small-alt-text">All methods produce nearly perfect circular phase trajectories.<br/>
-This corresponds to almost energy-conserving behavior at small τ.
-</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-phase-portraits-0-5">Plot 5 — Phase Portraits (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-portraits-2-0">Plot 6 — Phase Portraits (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-7-error-vs-time">Plot 7 — Error vs Time</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-0-1">τ = 0.01 and τ = 0.1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">τ = 0.5</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and-2-0">τ = 1.0 and τ = 2.0</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicitrungekutta-implementation">ExplicitRungeKutta implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rk2-explicit-heun">RK2 (Explicit Heun)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rk4-classical-explicit">RK4 (Classical Explicit)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gausslegendre-irk-s-2">Gauss–Legendre IRK (s=2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radau-iia-irk-s-2">Radau IIA IRK (s=2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
 </ul>
 </li>
 </ul>
