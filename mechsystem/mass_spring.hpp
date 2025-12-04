@@ -7,7 +7,19 @@
 using namespace ASC_ode;
 
 #include <vector.hpp>
+
 using namespace nanoblas;
+
+// operator a/b
+template <size_t D>
+Vec<D> operator/(const Vec<D> &v, double s)
+{
+    Vec<D> r;
+    for (size_t i = 0; i < D; i++)
+        r(i) = v(i) / s;
+    return r;
+}
+
 
 
 template <int D>
@@ -51,12 +63,23 @@ public:
   std::array<Connector,2> connectors;
 };
 
+
+class DistanceConstraint
+{
+public:
+    Connector c1;
+    Connector c2;
+    double rest_length;
+};
+
+
 template <int D>
 class MassSpringSystem
 {
   std::vector<Fix<D>> m_fixes;
   std::vector<Mass<D>> m_masses;
   std::vector<Spring> m_springs;
+  std::vector<DistanceConstraint> m_constraints;
   Vec<D> m_gravity=0.0;
 public:
   void setGravity (Vec<D> gravity) { m_gravity = gravity; }
@@ -83,6 +106,12 @@ public:
   auto & fixes() { return m_fixes; } 
   auto & masses() { return m_masses; } 
   auto & springs() { return m_springs; }
+  auto & constraints() { return m_constraints;}
+
+  void addDistanceConstraint(const DistanceConstraint &dc)
+  {
+    m_constraints.push_back(dc);
+  }
 
   void getState (VectorView<> values, VectorView<> dvalues, VectorView<> ddvalues)
   {
@@ -174,6 +203,36 @@ public:
           fmat.row(c2.nr) -= force*dir12;
       }
 
+    //distance constraints
+    double kp = 10000.0;
+
+    for (auto &dc : mss.constraints())
+    {
+      auto c1 = dc.c1;
+      auto c2 = dc.c2;
+
+        // positions
+        Vec<D> p1 = (c1.type == Connector::FIX ? mss.fixes()[c1.nr].pos : xmat.row(c1.nr));
+        Vec<D> p2 = (c2.type == Connector::FIX ? mss.fixes()[c2.nr].pos : xmat.row(c2.nr));
+
+        Vec<D> d = p1 - p2;
+        double L = norm(d);
+        if (L < 1e-12) continue;
+
+        Vec<D> dir = d / L;
+        double phi = L - dc.rest_length;   // constraint violation
+
+        Vec<D> f12 = -kp * phi * dir;      // penalty force
+
+        if (c1.type == Connector::MASS)
+            fmat.row(c1.nr) += f12;
+
+        if (c2.type == Connector::MASS)
+            fmat.row(c2.nr) -= f12;
+    }
+
+
+
     for (size_t i = 0; i < mss.masses().size(); i++)
       fmat.row(i) *= 1.0/mss.masses()[i].mass;
   }
@@ -181,17 +240,60 @@ public:
   virtual void evaluateDeriv (VectorView<double> x, MatrixView<double> df) const override
   {
     // TODO: exact differentiation
-    double eps = 1e-8;
-    Vector<> xl(dimX()), xr(dimX()), fl(dimF()), fr(dimF());
-    for (size_t i = 0; i < dimX(); i++)
-      {
-        xl = x;
-        xl(i) -= eps;
-        xr = x;
-        xr(i) += eps;
-        evaluate (xl, fl);
-        evaluate (xr, fr);
-        df.col(i) = 1/(2*eps) * (fr-fl);
+    df = 0.0;
+
+    size_t N = mss.masses().size();
+    auto X = x.asMatrix(N, D);
+
+    // Loop over all springs
+    for (auto &spring : mss.springs())
+    {
+        auto [c1, c2] = spring.connectors;
+
+        //get positions
+        Vec<D> p1 = (c1.type == Connector::FIX ? mss.fixes()[c1.nr].pos : X.row(c1.nr));
+        Vec<D> p2 = (c2.type == Connector::FIX ? mss.fixes()[c2.nr].pos : X.row(c2.nr));
+
+        Vec<D> d = p2 - p1;
+        double L = norm(d);
+
+        if (L < 1e-12) continue; // avoid 0 division
+
+        Vec<D> n = d / L;               // unit direction
+        double k = spring.stiffness;
+        double L0 = spring.length;
+        double fmag = k * (L - L0);
+
+        // For Jacobian:  df/dp = k * ( n*n^T + ((L-L0)/L)*(I - n*n^T) )
+        double a = fmag / L;            // (L-L0)/L * k
+
+        // Build 3x3 or 2x2 block
+        for (size_t i = 0; i < D; i++)
+        for (size_t j = 0; j < D; j++)
+        {
+            double dij = n(i)*n(j);                // n n^T
+            double Kij = k * dij + a * ((i==j?1.0:0.0) - dij);
+
+            // F1 = +K * dX
+            // F2 = -K * dX
+
+            if (c1.type == Connector::MASS)
+            {
+                df(c1.nr*D + i, c1.nr*D + j) -= Kij;
+            }
+
+            if (c2.type == Connector::MASS)
+            {
+                df(c2.nr*D + i, c2.nr*D + j) -= Kij;
+            }
+
+            // off-diagonal blocks
+            if (c1.type == Connector::MASS && c2.type == Connector::MASS)
+            {
+                df(c1.nr*D + i, c2.nr*D + j) += Kij;
+                df(c2.nr*D + i, c1.nr*D + j) += Kij;
+            }
+        }
       }
   }
   

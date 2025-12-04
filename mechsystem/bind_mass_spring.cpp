@@ -6,11 +6,17 @@
 #include "mass_spring.hpp"
 #include "Newmark.hpp"
 
+
+
+
 namespace py = pybind11;
 
 PYBIND11_MAKE_OPAQUE(std::vector<Mass<3>>);
 PYBIND11_MAKE_OPAQUE(std::vector<Fix<3>>);
 PYBIND11_MAKE_OPAQUE(std::vector<Spring>);
+PYBIND11_MAKE_OPAQUE(std::vector<DistanceConstraint>);
+
+
 
 PYBIND11_MODULE(mass_spring, m) {
     m.doc() = "mass-spring-system simulator"; 
@@ -73,6 +79,16 @@ PYBIND11_MODULE(mass_spring, m) {
                              [](Spring & s) { return s.connectors; })
       ;
 
+    py::class_<DistanceConstraint>(m, "DistanceConstraint")
+    .def(py::init<Connector, Connector, double>())
+    .def_readwrite("c1", &DistanceConstraint::c1)
+    .def_readwrite("c2", &DistanceConstraint::c2)
+    .def_readwrite("rest_length", &DistanceConstraint::rest_length);
+    
+    py::bind_vector<std::vector<DistanceConstraint>>(m, "DistanceConstraints");
+
+
+
     
     py::bind_vector<std::vector<Mass<3>>>(m, "Masses3d");
     py::bind_vector<std::vector<Fix<3>>>(m, "Fixes3d");
@@ -112,6 +128,21 @@ PYBIND11_MODULE(mass_spring, m) {
         mss.getState (x, dx, ddx);
         return std::vector<double>(x);
       })
+      
+
+      .def("addDistanceConstraint",
+           [](MassSpringSystem<3>& mss, DistanceConstraint dc){
+                mss.addDistanceConstraint(dc);
+           })
+      .def_property_readonly("constraints",
+           [](MassSpringSystem<3>& mss) -> auto& { return mss.constraints(); })
+
+
+
+
+
+
+
 
       .def("simulate", [](MassSpringSystem<3> & mss, double tend, size_t steps) {
         Vector<> x(3*mss.masses().size());
@@ -126,7 +157,6 @@ PYBIND11_MODULE(mass_spring, m) {
 
         mss.setState (x, dx, ddx);  
     });
-
 
   
     
