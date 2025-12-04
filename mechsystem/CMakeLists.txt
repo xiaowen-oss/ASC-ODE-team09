@@ -7,7 +7,6 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 
 add_executable (test_mass_spring mass_spring.cpp ${CMAKE_SOURCE_DIR}/src)
-)
 
 
 find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
