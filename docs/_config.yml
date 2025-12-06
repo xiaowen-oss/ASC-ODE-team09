@@ -4,7 +4,7 @@ author: "Fan Xiaowen, Immaculada Fernández, Zeynep Yanmaz, Ahmad Zulafqar"
 logo: ASC_Logo_transparent_300ppi_RGB.png
 
 execute:
-  execute_notebooks: "off"
+  execute_notebooks: "auto"
 
 html:
   use_repository_button: false
