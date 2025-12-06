@@ -7,18 +7,19 @@ Find theory behind here: https://jschoeberl.github.io/IntroSC/ODEs/ODEs.html
 **Our Jupyterbook [documentation](https://xiaowen-oss.github.io/ASC-ODE-team09/)**
 
 
+Attention: For ex1 and ex2, we focus on the result and analysis, the code is in the folder. For ex3, we add code inside the report and explain things step by step.
+
 ## Exercise 1 (due 24.11.2025)
 1. Solve problem 17.2.2 and 17.4.1
 2. All datas are in the folder `Exercise 1`
 3. For every method, there is a `.cpp` `.csv` `.py` `.png`
-4. The discussion contains result and analysis
+
 
 ## Exercise 2 (due 01.12.2025)
 1. Solve problem 17.4.1, 18.4, 18.5 and 19.4
 2. All datas are in the folder `Exercise 2`
-3. The discussion contains result and analysis
 
-## Exercise 3 (due 08.12.2025)
+
+## Exercise 3 (due 09.12.2025)
 1. Solve problem 20
-2. All datas are in the folder `Exercise 3`
-3. The discussion contains main code, result and analysis
+2. All datas are in the folder `mechsystem`

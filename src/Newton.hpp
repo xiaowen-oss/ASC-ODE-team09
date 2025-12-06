@@ -10,7 +10,7 @@
 namespace ASC_ode
 {  
   void NewtonSolver (std::shared_ptr<NonlinearFunction> func, VectorView<double> x,
-                     double tol = 1e-10, int maxsteps = 10,
+                     double tol = 1e-8, int maxsteps = 20,
                      std::function<void(int,double,VectorView<double>)> callback = nullptr)
   {
     Vector<double> res(func->dimF());

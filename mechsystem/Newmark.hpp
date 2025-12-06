@@ -87,7 +87,7 @@
 
     for (int i = 0; i < steps; i++)
       {
-        NewtonSolver (equ, a);
+        NewtonSolver (equ, a, 1e-9, 20);
         xnew -> evaluate (a, x);
         vnew -> evaluate (a, v);
 
