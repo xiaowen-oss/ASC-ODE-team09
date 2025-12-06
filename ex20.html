@@ -67,7 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'ex20';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)" href="ex19.4.html" />
+    <link rel="next" title="Q4: Experiment with different mechanical structures" href="ex20_q4.html" />
+    <link rel="prev" title="Exercise 3 (Due 09.12.2025)" href="ex3_title.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,8 +195,9 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="ex3_title.html">Exercise 3 (Due 09.12.2025)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 3 (Due 09.12.2025)</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="ex20_q4.html">Q4: Experiment with different mechanical structures</a></li>
 </ul>
 
     </div>
@@ -344,30 +346,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 3 (Due 09.12.2025)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-3d-version-mass-spring-system-with-lagrangian-constraint">Result: 3D Version_Mass-Spring system with Lagrangian Constraint</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">The system changes from ODE to DAE:
-$$
-\begin{pmatrix}
-M &amp; G^T \
-G &amp; 0
-\end{pmatrix}
-\begin{pmatrix}
-\ddot{x} \
-\lambda
-\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-version-mass-spring-system-with-lagrangian-constraint">3D Version: Mass-Spring system with Lagrangian Constraint</a></li>
-</ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -456,11 +442,11 @@ make -j
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../build/mechsystem&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<video controls src="/home/elenhelen/ASC-ODE-team09/docs/data_ex3/ms_nodis_largek.mp4" width="600">
+<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_nodis_largek.mp4" width="600">
 </video>
 <p>In the example code, the spring constant is too large such that we can’t see an obviously ‘spring’ action.</p>
 <p>If we change the spring constant with ‘1000’ and ‘500’, we can see:</p>
-<video controls src="/home/elenhelen/ASC-ODE-team09/docs/data_ex3/ms_nodis_smallk.mp4" width="600">
+<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_nodis_smallk.mp4" width="600">
 </video>
 </section>
 <section id="q2-add-lagragian-constraints">
@@ -477,32 +463,30 @@ make -j
 \[
 L(x,𝜆) = -U(x) + 𝜆g(x)
 \]</div>
-</section>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">
-<h1>The system changes from ODE to DAE:
-$$
+<p>The system changes from ODE to DAE:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{pmatrix}
-M &amp; G^T \
+M &amp; G^T \\
 G &amp; 0
 \end{pmatrix}
 \begin{pmatrix}
-\ddot{x} \
+\ddot{x} \\
 \lambda
-\end{pmatrix}<a class="headerlink" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix" title="Permalink to this heading">#</a></h1>
-<p>\begin{pmatrix}
-F_\text{ext} \
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_\text{ext} \\
 0
 \end{pmatrix},
-$$</p>
+\end{split}\]</div>
 <p>In the implementation, each constraint contributes:</p>
 <ul class="simple">
 <li><p>a constraint equation <span class="math notranslate nohighlight">\(g(x) = L-L_{0} = 0\)</span></p></li>
 <li><p>a constraint force <span class="math notranslate nohighlight">\(F_{i} ​= −λn, F_{j}​ = +λn\)</span>, n is unit direction vector</p></li>
 </ul>
 <ol class="arabic simple" start="2">
-<li><p>Modify <code class="docutils literal notranslate"><span class="pre">mass_spring.hpp</span></code> and classify new function <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code></p></li>
+<li><p>Modify <strong>mass_spring.hpp</strong> and classify new function <strong>DistanceConstraint</strong></p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DistanceConstraint</span>
 <span class="p">{</span>
@@ -548,8 +532,9 @@ $$</p>
     }
 </pre></div>
 </div>
+</section>
 <section id="q3-implement-the-exact-derivative">
-<h2>Q3: Implement the exact derivative<a class="headerlink" href="#q3-implement-the-exact-derivative" title="Permalink to this heading">#</a></h2>
+<h3>Q3: Implement the exact derivative<a class="headerlink" href="#q3-implement-the-exact-derivative" title="Permalink to this heading">#</a></h3>
 <p>Since we are solving DAE, F(x) is non-linear. We need Jacobian derivative:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -614,9 +599,9 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
 </pre></div>
 </div>
 </section>
-<section id="d-version-mass-spring-system-with-lagrangian-constraint">
-<h2>3D Version: Mass-Spring system with Lagrangian Constraint<a class="headerlink" href="#d-version-mass-spring-system-with-lagrangian-constraint" title="Permalink to this heading">#</a></h2>
-<p>Add constrains directly in <code class="docutils literal notranslate"><span class="pre">.ipnb</span></code> to see the 3D version</p>
+<section id="result-3d-version-mass-spring-system-with-lagrangian-constraint">
+<h3>Result: 3D Version_Mass-Spring system with Lagrangian Constraint<a class="headerlink" href="#result-3d-version-mass-spring-system-with-lagrangian-constraint" title="Permalink to this heading">#</a></h3>
+<p>Add constrains directly in <code class="docutils literal notranslate"><span class="pre">mass_spring.ipnb</span></code> to see the 3D version</p>
 <ol class="arabic simple">
 <li><p>Delete the spring and change to distance constraint:</p></li>
 </ol>
@@ -625,7 +610,7 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Using <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code> and assume the fixed distance 1:</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code> and assume the fixed distance L = 1:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dc1</span> <span class="o">=</span> <span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 <span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">dc1</span><span class="p">)</span>
@@ -634,6 +619,31 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
 <span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">dc2</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Search for every constraints and find the position:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">mss</span><span class="o">.</span><span class="n">constraints</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>                      <span class="c1"># FIX</span>
+            <span class="n">pA</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">fixes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span>
+        <span class="k">else</span><span class="p">:</span>                                   <span class="c1"># MASS</span>
+            <span class="n">pA</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">masses</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span>
+
+        <span class="c1"># get position of second constraint point</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">pB</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">fixes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pB</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">masses</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span>
+        <span class="n">springpos</span><span class="o">.</span><span class="n">append</span> <span class="p">([</span> <span class="n">pA</span><span class="p">,</span> <span class="n">pB</span> <span class="p">])</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>When the Lagrange multiplier becomes very large, the Jacobian matrix used in the Newton solver becomes numerically ill-conditioned.</p></li>
+</ol>
+<p>Error <strong>Newton did not converge</strong> exist.</p>
+<p>We increase the tolerance and max. iteration to <em>1e-9</em> and <em>20</em>. And slow down the video <em>sleep(0.3)</em></p>
+<p>Finally we get:</p>
+<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_la_con.mp4" width="600">
+</video>
+<p>Obviously, the constraint connection lines maintain a fixed length, regardless of how the mass blocks move. The segments do not stretch or contract noticeably like a soft spring, making the connections appear as metal rods.</p>
+</section>
 </section>
 </section>
 
@@ -668,13 +678,22 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ex19.4.html"
+       href="ex3_title.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)</p>
+        <p class="prev-next-title">Exercise 3 (Due 09.12.2025)</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="ex20_q4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Q4: Experiment with different mechanical structures</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -692,30 +711,14 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 3 (Due 09.12.2025)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-3d-version-mass-spring-system-with-lagrangian-constraint">Result: 3D Version_Mass-Spring system with Lagrangian Constraint</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">The system changes from ODE to DAE:
-$$
-\begin{pmatrix}
-M &amp; G^T \
-G &amp; 0
-\end{pmatrix}
-\begin{pmatrix}
-\ddot{x} \
-\lambda
-\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-version-mass-spring-system-with-lagrangian-constraint">3D Version: Mass-Spring system with Lagrangian Constraint</a></li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
