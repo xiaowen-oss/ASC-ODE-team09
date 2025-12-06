@@ -179,21 +179,90 @@ public:
   }
   
   virtual void evaluateDeriv (VectorView<double> x, MatrixView<double> df) const override
-  {
-    // TODO: exact differentiation
-    double eps = 1e-8;
-    Vector<> xl(dimX()), xr(dimX()), fl(dimF()), fr(dimF());
-    for (size_t i = 0; i < dimX(); i++)
-      {
-        xl = x;
-        xl(i) -= eps;
-        xr = x;
-        xr(i) += eps;
-        evaluate (xl, fl);
-        evaluate (xr, fr);
-        df.col(i) = 1/(2*eps) * (fr-fl);
-      }
-  }
+{
+  //exact differentiation
+    df = 0.0;
+
+    size_t nm = mss.masses().size();
+    auto xmat = x.asMatrix(nm, D);
+
+    for (auto spring : mss.springs())
+    {
+        auto c1 = spring.connectors[0];
+        auto c2 = spring.connectors[1];
+
+        Vec<D> p1, p2;
+        if (c1.type == Connector::FIX)
+            p1 = mss.fixes()[c1.nr].pos;
+        else
+            p1 = xmat.row(c1.nr);
+
+        if (c2.type == Connector::FIX)
+            p2 = mss.fixes()[c2.nr].pos;
+        else
+            p2 = xmat.row(c2.nr);
+
+        Vec<D> d = p2 - p1;
+        double r = norm(d);
+        if (r < 1e-12) continue;
+
+        double k = spring.stiffness;
+        double L = spring.length;
+
+        double g = 1.0 - L/r;
+        double inv_r3 = 1.0 / (r*r*r);
+
+        double K[D][D];
+        for (int a = 0; a < D; a++)
+            for (int b = 0; b < D; b++)
+            {
+                double delta = (a == b) ? 1.0 : 0.0;
+                K[a][b] = k * ( g * delta + L * d[a]*d[b] * inv_r3 );
+            }
+
+        if (c1.type == Connector::MASS)
+        {
+            size_t i = c1.nr;
+            double mi = mss.masses()[i].mass;
+
+            for (int a = 0; a < D; a++)
+                for (int b = 0; b < D; b++)
+                {
+                    size_t row = i*D + a;
+                    size_t col_self = i*D + b;
+                    df(row, col_self) += -K[a][b] / mi;
+
+                    if (c2.type == Connector::MASS)
+                    {
+                        size_t j = c2.nr;
+                        size_t col_other = j*D + b;
+                        df(row, col_other) += +K[a][b] / mi;
+                    }
+                }
+        }
+
+        if (c2.type == Connector::MASS)
+        {
+            size_t j = c2.nr;
+            double mj = mss.masses()[j].mass;
+
+            for (int a = 0; a < D; a++)
+                for (int b = 0; b < D; b++)
+                {
+                    size_t row = j*D + a;
+
+                    if (c1.type == Connector::MASS)
+                    {
+                        size_t i = c1.nr;
+                        size_t col_other = i*D + b;
+                        df(row, col_other) += +K[a][b] / mj;
+                    }
+
+                    size_t col_self = j*D + b;
+                    df(row, col_self) += -K[a][b] / mj;
+                }
+        }
+    }
   
 };
 
