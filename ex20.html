@@ -182,8 +182,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ex2_title.html">Exercise 2 (Due 01.12.2025)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex17.4.1_q4.html">Exercise 17.4.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex18.4.html">Exercise 18.4</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ex18.5.html">Exercise 18.5 — AutoDiff Pendulum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ex19.4.html">Exercise 19.4 — Comparison of RK2, RK4, Gauss–Legendre (s=2), and Radau IIA (s=2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex18.5.html">Exercise 18.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex19.4.html">Exercise 19.4</a></li>
 
 
 
@@ -442,11 +442,13 @@ make -j
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../build/mechsystem&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_nodis_largek.mp4" width="600">
+<video width="600" controls>
+  <source src="_static/ms_nodis_largek.mp4" type="video/mp4">
 </video>
 <p>In the example code, the spring constant is too large such that we can’t see an obviously ‘spring’ action.</p>
 <p>If we change the spring constant with ‘1000’ and ‘500’, we can see:</p>
-<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_nodis_smallk.mp4" width="600">
+<video width="600" controls>
+  <source src="_static/ms_nodis_smallk.mp4" type="video/mp4">
 </video>
 </section>
 <section id="q2-add-lagragian-constraints">
@@ -640,7 +642,8 @@ df(c2.nr*D + i, c1.nr*D + j) += Kij;
 <p>Error <strong>Newton did not converge</strong> exist.</p>
 <p>We increase the tolerance and max. iteration to <em>1e-9</em> and <em>20</em>. And slow down the video <em>sleep(0.3)</em></p>
 <p>Finally we get:</p>
-<video controls src="/home/elenhelen/ASC-ODE-team09/docs/_build/html/_static/ms_la_con.mp4" width="600">
+<video width="600" controls>
+  <source src="_static/ms_la_con.mp4" type="video/mp4">
 </video>
 <p>Obviously, the constraint connection lines maintain a fixed length, regardless of how the mass blocks move. The segments do not stretch or contract noticeably like a soft spring, making the connections appear as metal rods.</p>
 </section>
