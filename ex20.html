@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Exercise 3 (Due 08.12.2025) &#8212; ASC-ODE Documentation</title>
+    <title>Exercise 3 (Due 09.12.2025) &#8212; ASC-ODE Documentation</title>
   
   
   
@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ex20';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -192,7 +194,8 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 3 (Due 08.12.2025)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 3 (Due 09.12.2025)</a></li>
+
 </ul>
 
     </div>
@@ -331,7 +334,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exercise 3 (Due 08.12.2025)</h1>
+    <h1>Exercise 3 (Due 09.12.2025)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -341,12 +344,30 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 3 (Due 09.12.2025)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">The system changes from ODE to DAE:
+$$
+\begin{pmatrix}
+M &amp; G^T \
+G &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+\ddot{x} \
+\lambda
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-version-mass-spring-system-with-lagrangian-constraint">3D Version: Mass-Spring system with Lagrangian Constraint</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -357,8 +378,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exercise-3-due-08-12-2025">
-<h1>Exercise 3 (Due 08.12.2025)<a class="headerlink" href="#exercise-3-due-08-12-2025" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-3-due-09-12-2025">
+<h1>Exercise 3 (Due 09.12.2025)<a class="headerlink" href="#exercise-3-due-09-12-2025" title="Permalink to this heading">#</a></h1>
 <p>*All documents we mentioned can be found in branch “Exercise3”.</p>
 <section id="exercise-20-4">
 <h2>Exercise 20.4<a class="headerlink" href="#exercise-20-4" title="Permalink to this heading">#</a></h2>
@@ -435,38 +456,184 @@ make -j
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../build/mechsystem&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><video src="_images/test1.mp4" title="test 3D version"><a href="_images/test1.mp4">test 3D version</a></video></p>
+<video controls src="/home/elenhelen/ASC-ODE-team09/docs/data_ex3/ms_nodis_largek.mp4" width="600">
+</video>
+<p>In the example code, the spring constant is too large such that we can’t see an obviously ‘spring’ action.</p>
+<p>If we change the spring constant with ‘1000’ and ‘500’, we can see:</p>
+<video controls src="/home/elenhelen/ASC-ODE-team09/docs/data_ex3/ms_nodis_smallk.mp4" width="600">
+</video>
 </section>
 <section id="q2-add-lagragian-constraints">
 <h3>Q2: Add Lagragian constraints<a class="headerlink" href="#q2-add-lagragian-constraints" title="Permalink to this heading">#</a></h3>
-<p>回顾问题
-改了massspring.hpp和bind
-可以用那个cpp打印约束参数，然后分析</p>
-<p>一开始加一个除法运算
-// operator a/b
-template &lt;size_t D&gt;
-Vec<D> operator/(const Vec<D> &amp;v, double s)
-{
-Vec<D> r;
-for (size_t i = 0; i &lt; D; i++)
-r(i) = v(i) / s;
-return r;
-}</p>
-<p>class DistanceConstraint
-{
-public:
-Connector c1;
-Connector c2;
-double rest_length;
-};</p>
-<p>std::vector<DistanceConstraint> m_constraints;</p>
-<p>public:auto &amp; constraints() { return m_constraints;}</p>
-<p>void addDistanceConstraint(const DistanceConstraint &amp;dc)
-{
-m_constraints.push_back(dc);
-}</p>
-<p><video src="_images/test2.mp4" title="test2 3D version"><a href="_images/test2.mp4">test2 3D version</a></video></p>
+<ol class="arabic simple">
+<li><p>In order to add distance constraints to the MassSpring system, which means:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+| x_{i} - x_{j} | = L_{0}
+\]</div>
+<p>A Lagrange multiplier 𝜆 enforces this constraint, leading to the Lagrange function：</p>
+<div class="math notranslate nohighlight">
+\[
+L(x,𝜆) = -U(x) + 𝜆g(x)
+\]</div>
 </section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">
+<h1>The system changes from ODE to DAE:
+$$
+\begin{pmatrix}
+M &amp; G^T \
+G &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+\ddot{x} \
+\lambda
+\end{pmatrix}<a class="headerlink" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix" title="Permalink to this heading">#</a></h1>
+<p>\begin{pmatrix}
+F_\text{ext} \
+0
+\end{pmatrix},
+$$</p>
+<p>In the implementation, each constraint contributes:</p>
+<ul class="simple">
+<li><p>a constraint equation <span class="math notranslate nohighlight">\(g(x) = L-L_{0} = 0\)</span></p></li>
+<li><p>a constraint force <span class="math notranslate nohighlight">\(F_{i} ​= −λn, F_{j}​ = +λn\)</span>, n is unit direction vector</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">mass_spring.hpp</span></code> and classify new function <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DistanceConstraint</span>
+<span class="p">{</span>
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">Connector</span> <span class="n">c1</span><span class="p">;</span>
+    <span class="n">Connector</span> <span class="n">c2</span><span class="p">;</span>
+    <span class="n">double</span> <span class="n">rest_length</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1"># Add new container</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DistanceConstraint</span><span class="o">&gt;</span> <span class="n">m_constraints</span><span class="p">;</span>
+
+<span class="c1"># Add function</span>
+<span class="n">void</span> <span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">const</span> <span class="n">DistanceConstraint</span> <span class="o">&amp;</span><span class="n">dc</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">m_constraints</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dc</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Mianly focus on <code class="docutils literal notranslate"><span class="pre">MSS_Function</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for (size_t i = 0; i &lt; n_constraints; i++)
+    {
+        auto&amp; dc = mss.constraints()[i];
+        double lambda = x(D * n_masses + i); 
+
+        Vec&lt;D&gt; p1 = (dc.c1.type == Connector::FIX) ? mss.fixes()[dc.c1.nr].pos : xmat.row(dc.c1.nr);
+        Vec&lt;D&gt; p2 = (dc.c2.type == Connector::FIX) ? mss.fixes()[dc.c2.nr].pos : xmat.row(dc.c2.nr);
+        
+        # Vector p2 -&gt; p1
+        Vec&lt;D&gt; d = p1 - p2; 
+        double L = norm(d);
+        if (L &lt; 1e-12) continue;
+        
+        # Gradient of C with respect to p1
+        Vec&lt;D&gt; dir = d / L; 
+
+        # Constraint force
+        if (dc.c1.type == Connector::MASS) fmat.row(dc.c1.nr) -= lambda * dir;
+        if (dc.c2.type == Connector::MASS) fmat.row(dc.c2.nr) += lambda * dir;
+
+        # Constraint Equation: g(x) = L - L0 = 0
+        f(D * n_masses + i) = (L - dc.rest_length);
+    }
+</pre></div>
+</div>
+<section id="q3-implement-the-exact-derivative">
+<h2>Q3: Implement the exact derivative<a class="headerlink" href="#q3-implement-the-exact-derivative" title="Permalink to this heading">#</a></h2>
+<p>Since we are solving DAE, F(x) is non-linear. We need Jacobian derivative:</p>
+<div class="math notranslate nohighlight">
+\[
+J = \frac{∂F}{∂x} 	
+\]</div>
+<p>The Jacobian has the block form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+J =
+\begin{pmatrix}
+\frac{\partial F}{\partial x} &amp; \frac{\partial F}{\partial \lambda} \\
+\frac{\partial g}{\partial x} &amp; 0
+\end{pmatrix},
+\end{split}\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p>F(x) : physical forces (gravity + springs + constraint forces)</p></li>
+<li><p>g(x)=0 : constraint equations</p></li>
+<li><p>G = \nabla g(x) : gradient of the constraints</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span>: Lagrange multipliers (constraint forces)</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>First, do the derivative of the <strong>spring forces</strong>. Taking the derivative yields the geometric stiffness matrix:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+K = k\, nn^T + \frac{k(L-L_0)}{L}(I - nn^T).
+\]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>double ninj = n(i)*n(j);
+double Kij = k * ninj + force_over_L * ((i==j?1.0:0.0) - ninj);
+
+# Assemble into Jacobian df
+df(c1.nr*D + i, c1.nr*D + j) -= Kij;
+df(c2.nr*D + i, c2.nr*D + j) -= Kij;
+df(c1.nr*D + i, c2.nr*D + j) += Kij;
+df(c2.nr*D + i, c1.nr*D + j) += Kij;
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Then, do the derivative of the constraint forces:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Geometric stiffness due to constraint tension (lambda)</span>
+
+<span class="n">double</span> <span class="n">lambda_over_L</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">/</span> <span class="n">L</span><span class="p">;</span>
+
+
+<span class="c1"># Hessian of the constraint: (lambda/L) * (I - n*n^T)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> <span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">-=</span> <span class="n">Hij</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> <span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">-=</span> <span class="n">Hij</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span> <span class="o">&amp;&amp;</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> 
+
+<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">+=</span> <span class="n">Hij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">+=</span> <span class="n">Hij</span><span class="p">;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Finally, coupling between x and <span class="math notranslate nohighlight">\(\lambda\)</span></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx_lambda</span><span class="p">)</span> <span class="o">-=</span> <span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="o">//</span> <span class="n">dF</span><span class="o">/</span><span class="n">dlambda</span>
+<span class="n">df</span><span class="p">(</span><span class="n">idx_lambda</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="o">//</span> <span class="n">dC</span><span class="o">/</span><span class="n">dx</span>
+</pre></div>
+</div>
+</section>
+<section id="d-version-mass-spring-system-with-lagrangian-constraint">
+<h2>3D Version: Mass-Spring system with Lagrangian Constraint<a class="headerlink" href="#d-version-mass-spring-system-with-lagrangian-constraint" title="Permalink to this heading">#</a></h2>
+<p>Add constrains directly in <code class="docutils literal notranslate"><span class="pre">.ipnb</span></code> to see the 3D version</p>
+<ol class="arabic simple">
+<li><p>Delete the spring and change to distance constraint:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mss</span><span class="o">.</span><span class="n">add</span> <span class="p">(</span><span class="n">Spring</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mA</span><span class="p">)))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">add</span> <span class="p">(</span><span class="n">Spring</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">mB</span><span class="p">)))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code> and assume the fixed distance 1:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dc1</span> <span class="o">=</span> <span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">dc1</span><span class="p">)</span>
+
+<span class="n">dc2</span> <span class="o">=</span> <span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mA</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">dc2</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -525,12 +692,30 @@ m_constraints.push_back(dc);
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 3 (Due 09.12.2025)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-20-4">Exercise 20.4</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q1-test-the-examples">Q1: Test the examples</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q2-add-lagragian-constraints">Q2: Add Lagragian constraints</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-system-changes-from-ode-to-dae-begin-pmatrix-m-g-t-g-0-end-pmatrix-begin-pmatrix-ddot-x-lambda-end-pmatrix">The system changes from ODE to DAE:
+$$
+\begin{pmatrix}
+M &amp; G^T \
+G &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+\ddot{x} \
+\lambda
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q3-implement-the-exact-derivative">Q3: Implement the exact derivative</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-version-mass-spring-system-with-lagrangian-constraint">3D Version: Mass-Spring system with Lagrangian Constraint</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
