@@ -23,7 +23,7 @@ PYBIND11_MODULE(mass_spring, m) {
                     [](Mass<2> & m, double mass) { m.mass = mass; })
       .def_property_readonly("pos",
                              [](Mass<2> & m) { return m.pos.data(); });
-      ;
+    ;
     m.def("Mass", [](double m, std::array<double,2> p) {
       return Mass<2>{m, { p[0], p[1] }};
     });
@@ -78,24 +78,30 @@ PYBIND11_MODULE(mass_spring, m) {
     // --- 2D SYSTEM ---
     py::class_<MassSpringSystem<2>> (m, "MassSpringSystem2d")
       .def(py::init<>())
+
       .def("add", [](MassSpringSystem<2> & mss, Mass<2> m) { return mss.addMass(m); });
       
     // --- 3D SYSTEM ---
     py::class_<MassSpringSystem<3>> (m, "MassSpringSystem3d")
       .def(py::init<>())
+
       .def("__str__", [](MassSpringSystem<3> & mss) {
         std::stringstream sstr;
         sstr << mss;
         return sstr.str();
       })
+
       .def_property("gravity", [](MassSpringSystem<3> & mss) { return mss.getGravity(); },
                     [](MassSpringSystem<3> & mss, std::array<double,3> g) { mss.setGravity(Vec<3>{g[0],g[1],g[2]}); })
+
       .def("add", [](MassSpringSystem<3> & mss, Mass<3> m) { return mss.addMass(m); })
       .def("add", [](MassSpringSystem<3> & mss, Fix<3> f) { return mss.addFix(f); })
       .def("add", [](MassSpringSystem<3> & mss, Spring s) { return mss.addSpring(s); })
+
       .def_property_readonly("masses", [](MassSpringSystem<3> & mss) -> auto& { return mss.masses(); })
       .def_property_readonly("fixes", [](MassSpringSystem<3> & mss) -> auto& { return mss.fixes(); })
       .def_property_readonly("springs", [](MassSpringSystem<3> & mss) -> auto& { return mss.springs(); })
+
       .def("__getitem__", [](MassSpringSystem<3> mss, Connector & c) {
         if (c.type==Connector::FIX) return py::cast(mss.fixes()[c.nr]);
         else return py::cast(mss.masses()[c.nr]);
