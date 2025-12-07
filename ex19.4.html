@@ -184,9 +184,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ex18.4.html">Exercise 18.4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex18.5.html">Exercise 18.5</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 19.4</a></li>
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="ex3_title.html">Exercise 3 (Due 09.12.2025)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex20.html">Exercise 20.4.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex20_q4.html">Q4: 3D Version: Experiment with different mechanical structures</a></li>
@@ -338,29 +335,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 19.4</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-process">Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-0-01">Plot 1 — Time Evolution (τ = 0.01)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-time-evolution-0-5">Plot 2 — Time Evolution (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-2-0">Plot 3 — Time Evolution (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-portraits-0-01">Plot 4 — Phase Portraits (τ = 0.01)</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#alt-text"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-phase-portraits-0-5">Plot 5 — Phase Portraits (τ = 0.5)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-portraits-2-0">Plot 6 — Phase Portraits (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-7-error-vs-time">Plot 7 — Error vs Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -377,48 +355,39 @@ document.write(`
 <section id="overall-process">
 <h2>Overall Process<a class="headerlink" href="#overall-process" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Implementation of a generic ExplicitRungeKutta time-stepper</strong><br />
-Created <code class="docutils literal notranslate"><span class="pre">ExplicitRungeKutta</span></code> class in <code class="docutils literal notranslate"><span class="pre">explicitRK.hpp</span></code> that takes an arbitrary Butcher tableau.  ((A,b,c)) with strictly lower triangular (A) (explicit RK).</p></li>
-<li><p>Definition of specific Butcher tableaus</p>
+<li><p>Implementation of a generic ExplicitRungeKutta time-stepper</p></li>
+</ol>
+<p>Created <code class="docutils literal notranslate"><span class="pre">ExplicitRungeKutta</span></code> class in <code class="docutils literal notranslate"><span class="pre">explicitRK.hpp</span></code> that takes an arbitrary Butcher tableau.</p>
+<p>((A,b,c)) with strictly lower triangular (A) (explicit RK).</p>
+<ol class="arabic simple" start="2">
+<li><p>Definition of specific Butcher tableaus
+Added setup routines for</p>
 <ul class="simple">
-<li><p>Added setup routines for</p>
-<ul>
 <li><p>RK2 (Heun)</p></li>
 <li><p>RK4 (classical 4th-order)</p></li>
 <li><p>Gauss–Legendre IRK (s=2)</p></li>
 <li><p>Radau IIA IRK (s=2)</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>Comparison driver
-① Implemented <code class="docutils literal notranslate"><span class="pre">Rk_compare.cpp</span></code> using the ASC-ODE framework and the above time-steppers.<br />
-② For each method and each τ, we solve the mass–spring system on <span class="math notranslate nohighlight">\([0,8\pi]\)</span> and write CSV files<br />
-<code class="docutils literal notranslate"><span class="pre">ex19_4_rk2.csv</span></code> <code class="docutils literal notranslate"><span class="pre">ex19_4_rk4.csv</span></code> <code class="docutils literal notranslate"><span class="pre">ex19_4_irk_gauss2.csv``ex19_4_radau2a.csv</span></code></p></li>
-<li><p>Postprocessing / plotting</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_RK_methods.py</span></code>: time evolution and phase plots for each τ.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_RK_errors.py</span></code>: error vs time, using the exact solution (y(t)=\cos t), (v(t)=-\sin t).</p></li>
-</ul>
-</li>
+<li><p>Comparison driver</p></li>
 </ol>
+<p>① Implemented <code class="docutils literal notranslate"><span class="pre">Rk_compare.cpp</span></code> using the ASC-ODE framework and the above time-steppers.</p>
+<p>② For each method and each τ, we solve the mass–spring system on <span class="math notranslate nohighlight">\([0,8\pi]\)</span> and write CSV files  <code class="docutils literal notranslate"><span class="pre">ex19_4_rk2.csv</span></code> <code class="docutils literal notranslate"><span class="pre">ex19_4_rk4.csv</span></code> <code class="docutils literal notranslate"><span class="pre">ex19_4_irk_gauss2.csv``ex19_4_radau2a.csv</span></code></p>
+<ol class="arabic simple" start="4">
+<li><p>Postprocessing / plotting</p></li>
+</ol>
+<p>① <code class="docutils literal notranslate"><span class="pre">plot_RK_methods.py</span></code>: time evolution and phase plots for each τ.</p>
+<p>② <code class="docutils literal notranslate"><span class="pre">plot_RK_errors.py</span></code>: error vs time, using the exact solution (y(t)=\cos t), (v(t)=-\sin t).</p>
 </section>
 <hr class="docutils" />
 <section id="plots">
 <h2>Plots<a class="headerlink" href="#plots" title="Permalink to this heading">#</a></h2>
 <p>Below we summarize the key graphical outputs (only representative examples are shown; full set available in the repository).</p>
-<hr class="docutils" />
-<section id="plot-1-time-evolution-0-01">
-<h3>Plot 1 — Time Evolution (τ = 0.01)<a class="headerlink" href="#plot-1-time-evolution-0-01" title="Permalink to this heading">#</a></h3>
+<p><strong>Plot 1 — Time Evolution (τ = 0.01)</strong></p>
 <p>All four methods overlap almost perfectly.<br />
 Small step size ⇒ high accuracy for all methods; the oscillation keeps correct amplitude and phase.</p>
-</section>
-</section>
-</section>
-<section id="id1">
-<h1><img alt=" " src="_images/time_evolution_tau_0.01.png" /><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
-<section id="plot-2-time-evolution-0-5">
-<h2>Plot 2 — Time Evolution (τ = 0.5)<a class="headerlink" href="#plot-2-time-evolution-0-5" title="Permalink to this heading">#</a></h2>
+<p><img alt=" " src="_images/time_evolution_tau_0.01.png" /></p>
+<p><strong>Plot 2 — Time Evolution (τ = 0.5)</strong></p>
 <p>Differences become visible:</p>
 <ul class="simple">
 <li><p><strong>RK2</strong> starts to lose phase accuracy and amplitude.</p></li>
@@ -426,10 +395,7 @@ Small step size ⇒ high accuracy for all methods; the oscillation keeps correct
 <li><p><strong>Gauss–Legendre</strong> and <strong>Radau IIA</strong> remain stable and stay close to the true oscillation.
 <img alt="alt text" src="_images/time_evolution_tau_0.5.png" /></p></li>
 </ul>
-<hr class="docutils" />
-</section>
-<section id="plot-3-time-evolution-2-0">
-<h2>Plot 3 — Time Evolution (τ = 2.0)<a class="headerlink" href="#plot-3-time-evolution-2-0" title="Permalink to this heading">#</a></h2>
+<p><strong>Plot 3 — Time Evolution (τ = 2.0)</strong></p>
 <ul class="simple">
 <li><p><strong>RK2</strong> becomes completely unstable and diverges.</p></li>
 <li><p><strong>RK4</strong> already shows strong distortion.</p></li>
@@ -437,27 +403,17 @@ Small step size ⇒ high accuracy for all methods; the oscillation keeps correct
 <li><p><strong>Gauss–Legendre</strong> remains bounded but with reduced accuracy due to the very large τ.
 <img alt="alt text" src="_images/time_evolution_tau_2.0.png" /></p></li>
 </ul>
-<hr class="docutils" />
-</section>
-<section id="plot-4-phase-portraits-0-01">
-<h2>Plot 4 — Phase Portraits (τ = 0.01)<a class="headerlink" href="#plot-4-phase-portraits-0-01" title="Permalink to this heading">#</a></h2>
+<p><strong>Plot 4 — Phase Portraits (τ = 0.01)</strong></p>
 <p>All methods produce nearly perfect circular phase trajectories.<br />
 This corresponds to almost energy-conserving behavior at small τ.</p>
-</section>
-</section>
-<section id="alt-text">
-<h1><img alt="alt text" src="_images/phase_plot_tau_0.1.png" /><a class="headerlink" href="#alt-text" title="Permalink to this heading">#</a></h1>
-</section>
-<section id="plot-5-phase-portraits-0-5">
-<h1>Plot 5 — Phase Portraits (τ = 0.5)<a class="headerlink" href="#plot-5-phase-portraits-0-5" title="Permalink to this heading">#</a></h1>
+<p><img alt="alt text" src="_images/phase_plot_tau_0.1.png" /></p>
+<p><strong>Plot 5 — Phase Portraits (τ = 0.5)</strong></p>
 <ul class="simple">
 <li><p><strong>RK2</strong> spirals outward ⇒ artificial energy gain.</p></li>
 <li><p><strong>RK4</strong>, <strong>Gauss–2</strong>, and <strong>Radau IIA</strong> stay close to the exact circle; trajectories remain bounded.
 <img alt="alt text" src="_images/time_evolution_tau_0.5.png" /></p></li>
 </ul>
-<hr class="docutils" />
-<section id="plot-6-phase-portraits-2-0">
-<h2>Plot 6 — Phase Portraits (τ = 2.0)<a class="headerlink" href="#plot-6-phase-portraits-2-0" title="Permalink to this heading">#</a></h2>
+<p><strong>Plot 6 — Phase Portraits (τ = 2.0)</strong></p>
 <ul class="simple">
 <li><p><strong>RK2</strong> spirals dramatically outward (complete loss of stability).</p></li>
 <li><p><strong>RK4</strong> still oscillatory but clearly distorted.</p></li>
@@ -465,10 +421,7 @@ This corresponds to almost energy-conserving behavior at small τ.</p>
 <li><p><strong>Radau IIA</strong> spirals inward due to numerical damping (L-stability).
 <img alt="alt text" src="_images/time_evolution_tau_2.0.png" /></p></li>
 </ul>
-<hr class="docutils" />
-</section>
-<section id="plot-7-error-vs-time">
-<h2>Plot 7 — Error vs Time<a class="headerlink" href="#plot-7-error-vs-time" title="Permalink to this heading">#</a></h2>
+<p><strong>Plot 7 — Error vs Time</strong></p>
 <p>For each τ, the error is computed as<br />
 $<span class="math notranslate nohighlight">\(
 \text{err}(t) = \big\|\,(y_{\text{num}}(t),v_{\text{num}}(t)) - (\cos t,-\sin t)\,\big\|.
@@ -596,29 +549,10 @@ $<span class="math notranslate nohighlight">\(
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exercise 19.4</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-process">Overall Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-1-time-evolution-0-01">Plot 1 — Time Evolution (τ = 0.01)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-2-time-evolution-0-5">Plot 2 — Time Evolution (τ = 0.5)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-3-time-evolution-2-0">Plot 3 — Time Evolution (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-4-phase-portraits-0-01">Plot 4 — Phase Portraits (τ = 0.01)</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#alt-text"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-5-phase-portraits-0-5">Plot 5 — Phase Portraits (τ = 0.5)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-6-phase-portraits-2-0">Plot 6 — Phase Portraits (τ = 2.0)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-7-error-vs-time">Plot 7 — Error vs Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
