@@ -34,7 +34,13 @@ PYBIND11_MODULE(mass_spring, m) {
                     [](Mass<3> & m) { return m.mass; },
                     [](Mass<3> & m, double mass) { m.mass = mass; })
       .def_property_readonly("pos",
-                             [](Mass<3> & m) { return m.pos.data(); });
+                             [](Mass<3> & m) { return m.pos.data(); })
+      //add initial velocity
+      .def_property("vel",
+                    // getter(return array<double, 3> as output)
+                    [](Mass<3> & m) { return py::cast(std::array<double, 3>{m.vel(0), m.vel(1), m.vel(2)}); },
+                    // setter (accept array<double, 3> as input)
+                    [](Mass<3> & m, std::array<double, 3> v) { m.vel = Vec<3>{v[0], v[1], v[2]}; });
     ;
     m.def("Mass", [](double m, std::array<double,3> p) {
       return Mass<3>{m, { p[0], p[1], p[2] }};

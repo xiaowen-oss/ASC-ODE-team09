@@ -31,7 +31,7 @@ class Mass
 public:
   double mass;
   Vec<D> pos;
-  Vec<D> vel = Vec<D>({0,0,-1});
+  Vec<D> vel = 0.0;
 
   Vec<D> acc = 0.0;
 };
