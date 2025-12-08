@@ -67,7 +67,4 @@ for i in range(1000):
 
 The simulation shows the crane structure remaining rigid due to the DistanceConstraints (orange lines), while the load and arm bounce realistically due to the Springs (cyan lines).
 
-
-<video width="600" controls>
-  <source src="crane_simulation.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/34ebc42f-3653-46d9-b584-9e0fe426b58c
