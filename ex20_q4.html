@@ -337,9 +337,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-extend-the-double-pendulum-to-a-chain">Model 1 : Extend the double-pendulum to a chain</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-with-spring">Chain with spring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-with-constaint">Chain with constaint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2">Model 2 :</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-crane-structure-and-vibration">Model 2 :  Crane Structure and Vibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-replace-the-springs-of-the-double-pendulum-by-distance-constraints">Model 3 : Replace the Springs of the Double-Pendulum by Distance Constraints</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4">Model 4 :</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4-spinning-top">Model 4 : Spinning top</a></li>
 </ul>
             </nav>
         </div>
@@ -362,7 +362,7 @@ document.write(`
 <h2>Chain with spring<a class="headerlink" href="#chain-with-spring" title="Permalink to this heading">#</a></h2>
 <p>Assume the quantity of each mass: 1, length of the spring:1, the spring constant:1000, still fixed point at the origin.</p>
 <p>We only need to change the geometry part. Here we write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to add more masses and springs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#create for loop</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#create for loop</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_MASSES</span><span class="p">):</span>
     
     <span class="n">initial_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">SPRING_LENGTH</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
@@ -394,7 +394,7 @@ document.write(`
 <section id="chain-with-constaint">
 <h2>Chain with constaint<a class="headerlink" href="#chain-with-constaint" title="Permalink to this heading">#</a></h2>
 <p>Similarly, we write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to add mass and constraint.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_MASSES</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_MASSES</span><span class="p">):</span>
     <span class="n">initial_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">LINK_LENGTH</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     
     <span class="c1"># add new mass</span>
@@ -410,7 +410,7 @@ document.write(`
 </pre></div>
 </div>
 <p>Such that everytime, we only need to change <code class="docutils literal notranslate"><span class="pre">N_MASSES</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_MASSES</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N_MASSES</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">LINK_LENGTH</span> <span class="o">=</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
@@ -430,12 +430,79 @@ document.write(`
 </ul>
 </section>
 <hr class="docutils" />
-<section id="model-2">
-<h2>Model 2 :<a class="headerlink" href="#model-2" title="Permalink to this heading">#</a></h2>
+<section id="model-2-crane-structure-and-vibration">
+<h2>Model 2 :  Crane Structure and Vibration<a class="headerlink" href="#model-2-crane-structure-and-vibration" title="Permalink to this heading">#</a></h2>
+<p><em>Complete code – ‘crane.ipynb’</em></p>
+<p>In this section, we build a complex mechanical structure (a crane) by using the Mass-Spring System combined with Lagrangian Constraints.</p>
+<ol class="arabic">
+<li><p><strong>Model Construction Strategy</strong></p>
+<p>We implemented a <code class="docutils literal notranslate"><span class="pre">build_crane</span></code> function in Python. The structure consists of two main types of connections:</p>
+<ul class="simple">
+<li><p>Rigid Beams: Modeled using <code class="docutils literal notranslate"><span class="pre">DistanceConstraint</span></code>. We want the frame of the crane to be rigid and not oscillate like jelly.</p></li>
+<li><p>Cables (Elastic): Modeled using <code class="docutils literal notranslate"><span class="pre">Spring</span></code>. We want to observe vibration when lifting a mass.</p></li>
+</ul>
+<p>We defined a helper function to easily switch between these two types:</p>
+</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_beam</span><span class="p">(</span><span class="n">mss</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">stiffness</span><span class="p">,</span> <span class="n">use_constraint</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">use_constraint</span><span class="p">:</span>
+        <span class="c1"># Use Lagrangian constraint for rigid parts (Steel)</span>
+        <span class="n">dc</span> <span class="o">=</span> <span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">dc</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use Spring for elastic parts (Cables/Rubber)</span>
+        <span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Spring</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">stiffness</span><span class="p">,</span> <span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Building the Geometry</strong></p></li>
+</ol>
+<p>The crane consists of a vertical tower (10 floors) and a horizontal arm (6 units). To ensure structural stability we added crossed diagonal supports to every face.</p>
+<p>① The tower loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">floors</span><span class="p">):</span>
+    <span class="c1"># ... (node creation logic) ...</span>
+    <span class="c1"># connecting floors</span>
+    <span class="n">add_beam</span><span class="p">(</span><span class="n">mss</span><span class="p">,</span> <span class="n">c_curr</span><span class="p">,</span> <span class="n">c_next</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">use_constraint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#vertical union</span>
+    <span class="n">add_beam</span><span class="p">(</span><span class="n">mss</span><span class="p">,</span> <span class="n">c_next</span><span class="p">,</span> <span class="n">c_next_neighbor</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">use_constraint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1">#horizontal union</span>
+    
+    <span class="n">diag_len</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">L</span> 
+    <span class="n">add_beam</span><span class="p">(</span><span class="n">mss</span><span class="p">,</span> <span class="n">c_curr</span><span class="p">,</span> <span class="n">c_next_neighbor</span><span class="p">,</span> <span class="n">diag_len</span><span class="p">,</span> <span class="n">stiffness_beam</span><span class="p">,</span> <span class="n">use_constraint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1">#diagonal (X shape) for stability</span>
+</pre></div>
+</div>
+<p>The stiffness for the structural parts is 0 because their rigidity will be actually being defined by the Lagrange Constraints, while for the elastic springs we fixed a value <code class="docutils literal notranslate"><span class="pre">stiffness_beam=</span> <span class="pre">5000</span></code>. We coded the arm loop analougsly.</p>
+<p>② The Load and Cables:</p>
+<p>We attach a heavy mass (<span class="math notranslate nohighlight">\(m=5.0\)</span>) to the tip of the arm using elastic springs (stiffness_cable = 3000.0). This way we introduce the vibration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cables attached to the tip of the arm</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Spring</span><span class="p">(</span><span class="n">dist_h</span><span class="p">,</span> <span class="n">stiffness_cable</span><span class="p">,</span> <span class="p">(</span><span class="n">tip_node_1</span><span class="p">,</span> <span class="n">load_mass</span><span class="p">)))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Spring</span><span class="p">(</span><span class="n">dist_h</span><span class="p">,</span> <span class="n">stiffness_cable</span><span class="p">,</span> <span class="p">(</span><span class="n">tip_node_2</span><span class="p">,</span> <span class="n">load_mass</span><span class="p">)))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Simulation and Visualization</strong></p></li>
+</ol>
+<p>To visualize the movement smoothly, we modified the simulation loop in the Jupyter Notebook. Since the code with the Lagrange Constraints is computationally heavy, we decouple the physics steps from the rendering steps using <code class="docutils literal notranslate"><span class="pre">steps_per_frame</span></code> so the computer do not struggle that much to calculate the physics and draw the crane quickly at the same time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">steps_per_frame</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1">#render 1 frame every 2 physics calculations</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">mss</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> 
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">steps_per_frame</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># we just actualise the graphic positions when we plot (1 over 2)</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Result</strong></p></li>
+</ol>
+<p>The simulation shows the crane structure remaining rigid due to the DistanceConstraints (orange lines), while the load and arm bounce realistically due to the Springs (cyan lines).</p>
+<video width="600" controls>
+  <source src="_static/crane_simulation.mp4" type="video/mp4">
+</video>
 </section>
 <hr class="docutils" />
 <section id="model-3-replace-the-springs-of-the-double-pendulum-by-distance-constraints">
 <h2>Model 3 : Replace the Springs of the Double-Pendulum by Distance Constraints<a class="headerlink" href="#model-3-replace-the-springs-of-the-double-pendulum-by-distance-constraints" title="Permalink to this heading">#</a></h2>
+<p><em>Complete code – ‘dist_constraints.ipynb’</em></p>
 <p>In the original 3D mass–spring example, the double pendulum is modeled using two springs:</p>
 <ul class="simple">
 <li><p>one connecting the fixed point to the first mass,</p></li>
@@ -503,8 +570,78 @@ document.write(`
 <p>Obviously, the constraint connection lines maintain a fixed length, regardless of how the mass blocks move. The segments do not stretch or contract noticeably like a soft spring, making the connections appear as metal rods.</p>
 </section>
 <hr class="docutils" />
-<section id="model-4">
-<h2>Model 4 :<a class="headerlink" href="#model-4" title="Permalink to this heading">#</a></h2>
+<section id="model-4-spinning-top">
+<h2>Model 4 : Spinning top<a class="headerlink" href="#model-4-spinning-top" title="Permalink to this heading">#</a></h2>
+<p><em>Complete code – ‘bind_speed.cpp’ and ‘spinning.ipynb.ipynb’</em></p>
+<ol class="arabic simple">
+<li><p>First, we need to add initial velocity for the masses. So we can modify <code class="docutils literal notranslate"><span class="pre">bind_speed.cpp</span></code></p></li>
+</ol>
+<p>Attention: ‘vel’ has already been defined in hpp file, so we can define the property directly.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//add initial velocity</span>
+<span class="w">      </span><span class="p">.</span><span class="n">def_property</span><span class="p">(</span><span class="s">&quot;vel&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="c1">// getter(return array&lt;double, 3&gt; as output)</span>
+<span class="w">                    </span><span class="p">[](</span><span class="n">Mass</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">py</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">{</span><span class="n">m</span><span class="p">.</span><span class="n">vel</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">vel</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">vel</span><span class="p">(</span><span class="mi">2</span><span class="p">)});</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                    </span><span class="c1">// setter (accept array&lt;double, 3&gt; as input)</span>
+<span class="w">                    </span><span class="p">[](</span><span class="n">Mass</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">vel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Vec</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">{</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]};</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Then we define the geometry in <code class="docutils literal notranslate"><span class="pre">spinning.ipynb</span></code></p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># geometry model</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mf">0.5</span>           <span class="c1"># radius of the base triangle (m)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="mf">1.0</span>           <span class="c1"># height (m)</span>
+<span class="n">OMEGA</span> <span class="o">=</span> <span class="mf">20.0</span>      <span class="c1"># angular velocity (rad/s)</span>
+<span class="n">L_BASE</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># length of the base triangle sides</span>
+
+<span class="c1"># fixed point at origin</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Fix</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span> 
+
+<span class="c1"># 3 masses as the base triangle vertices</span>
+<span class="n">m_mass</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">phi1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">phi2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">phi3</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span>
+
+<span class="c1"># initial positions of the 3 masses</span>
+<span class="n">mA</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Mass</span><span class="p">(</span><span class="n">m_mass</span><span class="p">,</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi1</span><span class="p">),</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi1</span><span class="p">),</span> <span class="n">H</span><span class="p">)))</span>
+<span class="n">mB</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Mass</span><span class="p">(</span><span class="n">m_mass</span><span class="p">,</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi2</span><span class="p">),</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi2</span><span class="p">),</span> <span class="n">H</span><span class="p">)))</span>
+<span class="n">mC</span> <span class="o">=</span> <span class="n">mss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Mass</span><span class="p">(</span><span class="n">m_mass</span><span class="p">,</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi3</span><span class="p">),</span> <span class="n">R</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi3</span><span class="p">),</span> <span class="n">H</span><span class="p">)))</span>
+
+
+<span class="c1"># set initial speed</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mss</span><span class="o">.</span><span class="n">masses</span><span class="p">:</span>
+    <span class="c1"># get current position </span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> 
+    
+    <span class="c1"># seperate speed</span>
+    <span class="n">vx</span> <span class="o">=</span> <span class="o">-</span><span class="n">OMEGA</span> <span class="o">*</span> <span class="n">y</span>
+    <span class="n">vy</span> <span class="o">=</span> <span class="n">OMEGA</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="n">vz</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># input vel</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">vel</span> <span class="o">=</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">)</span>
+
+
+<span class="c1"># add distance constraints</span>
+<span class="c1"># fix-mass</span>
+<span class="n">L_TIP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mA</span><span class="p">,</span> <span class="n">L_TIP</span><span class="p">))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="n">L_TIP</span><span class="p">))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mC</span><span class="p">,</span> <span class="n">L_TIP</span><span class="p">))</span>
+
+<span class="c1"># inside mass</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="n">L_BASE</span><span class="p">))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">mB</span><span class="p">,</span> <span class="n">mC</span><span class="p">,</span> <span class="n">L_BASE</span><span class="p">))</span>
+<span class="n">mss</span><span class="o">.</span><span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">DistanceConstraint</span><span class="p">(</span><span class="n">mC</span><span class="p">,</span> <span class="n">mA</span><span class="p">,</span> <span class="n">L_BASE</span><span class="p">))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Finally, we can get the result:</p></li>
+</ol>
+<video width="600" controls>
+  <source src="_static/spinning.mp4" type="video/mp4">
+</video>
 </section>
 </section>
 
@@ -566,9 +703,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-extend-the-double-pendulum-to-a-chain">Model 1 : Extend the double-pendulum to a chain</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-with-spring">Chain with spring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-with-constaint">Chain with constaint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2">Model 2 :</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-crane-structure-and-vibration">Model 2 :  Crane Structure and Vibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-replace-the-springs-of-the-double-pendulum-by-distance-constraints">Model 3 : Replace the Springs of the Double-Pendulum by Distance Constraints</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4">Model 4 :</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-4-spinning-top">Model 4 : Spinning top</a></li>
 </ul>
   </nav></div>
 

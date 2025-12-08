@@ -359,43 +359,43 @@ document.write(`
 <li><p>Modify Cmakelist:</p></li>
 </ol>
 <p>① First, add cmake version, project name and standard</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span><span class="w"> </span><span class="mf">3.20</span><span class="p">)</span>
 <span class="n">project</span><span class="p">(</span><span class="n">mechsystem</span><span class="p">)</span>
-<span class="nb">set</span> <span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">set</span><span class="w"> </span><span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>② Then, include the head file in the root ‘src’</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">include_directories</span><span class="p">(</span><span class="n">$</span><span class="p">{</span><span class="n">CMAKE_CURRENT_SOURCE_DIR</span><span class="p">})</span>
 
-add_executable (test_mass_spring mass_spring.cpp ${CMAKE_SOURCE_DIR}/src)
+<span class="n">add_executable</span><span class="w"> </span><span class="p">(</span><span class="n">test_mass_spring</span><span class="w"> </span><span class="n">mass_spring</span><span class="p">.</span><span class="n">cpp</span><span class="w"> </span><span class="n">$</span><span class="p">{</span><span class="n">CMAKE_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>③ In the end, use pybind to create python module</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pybind11_add_module(mass_spring
-    bind_mass_spring.cpp
-)
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pybind11_add_module</span><span class="p">(</span><span class="n">mass_spring</span>
+<span class="w">    </span><span class="n">bind_mass_spring</span><span class="p">.</span><span class="n">cpp</span>
+<span class="p">)</span>
 
-target_include_directories(mass_spring PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
+<span class="n">target_include_directories</span><span class="p">(</span><span class="n">mass_spring</span><span class="w"> </span><span class="n">PRIVATE</span><span class="w"> </span>
+<span class="w">    </span><span class="n">$</span><span class="p">{</span><span class="n">CMAKE_CURRENT_SOURCE_DIR</span><span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Build and compile in <code class="docutils literal notranslate"><span class="pre">.venv</span></code> enviroment. (Since we install python in .venv enviroment in case of extra conflicts)</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># activate the enviroment
-source .venv/bin/activate
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// activate the enviroment</span>
+<span class="n">source</span><span class="w"> </span><span class="p">.</span><span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
 
-# build file
-mkdir build
-cd build
+<span class="c1">// build file</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="n">build</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">build</span>
 
-# use venv Python to open CMake
-cmake -DPython_EXECUTABLE=$(which python) ..
+<span class="c1">// use venv Python to open CMake</span>
+<span class="n">cmake</span><span class="w"> </span><span class="o">-</span><span class="n">DPython_EXECUTABLE</span><span class="o">=</span><span class="n">$</span><span class="p">(</span><span class="n">which</span><span class="w"> </span><span class="n">python</span><span class="p">)</span><span class="w"> </span><span class="p">..</span>
 
-# Compile 
-cmake ..
-make -j
+<span class="c1">// Compile </span>
+<span class="n">cmake</span><span class="w"> </span><span class="p">..</span>
+<span class="n">make</span><span class="w"> </span><span class="o">-</span><span class="n">j</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
@@ -473,48 +473,48 @@ F_\text{ext} \\
 <ol class="arabic simple" start="2">
 <li><p>Modify <strong>mass_spring.hpp</strong> and classify new function <strong>DistanceConstraint</strong></p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DistanceConstraint</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DistanceConstraint</span>
 <span class="p">{</span>
-<span class="n">public</span><span class="p">:</span>
-    <span class="n">Connector</span> <span class="n">c1</span><span class="p">;</span>
-    <span class="n">Connector</span> <span class="n">c2</span><span class="p">;</span>
-    <span class="n">double</span> <span class="n">rest_length</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Connector</span><span class="w"> </span><span class="n">c1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Connector</span><span class="w"> </span><span class="n">c2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">rest_length</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="c1"># Add new container</span>
-<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DistanceConstraint</span><span class="o">&gt;</span> <span class="n">m_constraints</span><span class="p">;</span>
+<span class="cp"># Add new container</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DistanceConstraint</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_constraints</span><span class="p">;</span>
 
-<span class="c1"># Add function</span>
-<span class="n">void</span> <span class="n">addDistanceConstraint</span><span class="p">(</span><span class="n">const</span> <span class="n">DistanceConstraint</span> <span class="o">&amp;</span><span class="n">dc</span><span class="p">)</span>
+<span class="cp"># Add function</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">addDistanceConstraint</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DistanceConstraint</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dc</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">m_constraints</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dc</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_constraints</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dc</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Mianly focus on <code class="docutils literal notranslate"><span class="pre">MSS_Function</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for (size_t i = 0; i &lt; n_constraints; i++)
-    {
-        auto&amp; dc = mss.constraints()[i];
-        double lambda = x(D * n_masses + i); 
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_constraints</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">dc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mss</span><span class="p">.</span><span class="n">constraints</span><span class="p">()[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">D</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_masses</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"> </span>
 
-        Vec&lt;D&gt; p1 = (dc.c1.type == Connector::FIX) ? mss.fixes()[dc.c1.nr].pos : xmat.row(dc.c1.nr);
-        Vec&lt;D&gt; p2 = (dc.c2.type == Connector::FIX) ? mss.fixes()[dc.c2.nr].pos : xmat.row(dc.c2.nr);
-        
-        # Vector p2 -&gt; p1
-        Vec&lt;D&gt; d = p1 - p2; 
-        double L = norm(d);
-        if (L &lt; 1e-12) continue;
-        
-        # Gradient of C with respect to p1
-        Vec&lt;D&gt; dir = d / L; 
+<span class="w">        </span><span class="n">Vec</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">FIX</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">mss</span><span class="p">.</span><span class="n">fixes</span><span class="p">()[</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="p">].</span><span class="n">pos</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">xmat</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Vec</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">FIX</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">mss</span><span class="p">.</span><span class="n">fixes</span><span class="p">()[</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="p">].</span><span class="n">pos</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">xmat</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="p">);</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="cp"># Vector p2 -&gt; p1</span>
+<span class="w">        </span><span class="n">Vec</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-12</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="cp"># Gradient of C with respect to p1</span>
+<span class="w">        </span><span class="n">Vec</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">L</span><span class="p">;</span><span class="w"> </span>
 
-        # Constraint force
-        if (dc.c1.type == Connector::MASS) fmat.row(dc.c1.nr) -= lambda * dir;
-        if (dc.c2.type == Connector::MASS) fmat.row(dc.c2.nr) += lambda * dir;
+<span class="w">        </span><span class="cp"># Constraint force</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="p">)</span><span class="w"> </span><span class="n">fmat</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dir</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="p">)</span><span class="w"> </span><span class="n">fmat</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dir</span><span class="p">;</span>
 
-        # Constraint Equation: g(x) = L - L0 = 0
-        f(D * n_masses + i) = (L - dc.rest_length);
-    }
+<span class="w">        </span><span class="cp"># Constraint Equation: g(x) = L - L0 = 0</span>
+<span class="w">        </span><span class="n">f</span><span class="p">(</span><span class="n">D</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_masses</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">rest_length</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -548,39 +548,39 @@ J =
 \[
 K = k\, nn^T + \frac{k(L-L_0)}{L}(I - nn^T).
 \]</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>double ninj = n(i)*n(j);
-double Kij = k * ninj + force_over_L * ((i==j?1.0:0.0) - ninj);
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">ninj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">Kij</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ninj</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">force_over_L</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="o">?</span><span class="mf">1.0</span><span class="o">:</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ninj</span><span class="p">);</span>
 
-# Assemble into Jacobian df
-df(c1.nr*D + i, c1.nr*D + j) -= Kij;
-df(c2.nr*D + i, c2.nr*D + j) -= Kij;
-df(c1.nr*D + i, c2.nr*D + j) += Kij;
-df(c2.nr*D + i, c1.nr*D + j) += Kij;
+<span class="cp"># Assemble into Jacobian df</span>
+<span class="n">df</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Kij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Kij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Kij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Kij</span><span class="p">;</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Then, do the derivative of the constraint forces:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Geometric stiffness due to constraint tension (lambda)</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp"># Geometric stiffness due to constraint tension (lambda)</span>
 
-<span class="n">double</span> <span class="n">lambda_over_L</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">/</span> <span class="n">L</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">lambda_over_L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">L</span><span class="p">;</span>
 
 
-<span class="c1"># Hessian of the constraint: (lambda/L) * (I - n*n^T)</span>
+<span class="cp"># Hessian of the constraint: (lambda/L) * (I - n*n^T)</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> <span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">-=</span> <span class="n">Hij</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> <span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">-=</span> <span class="n">Hij</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span> <span class="o">&amp;&amp;</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Connector</span><span class="p">::</span><span class="n">MASS</span><span class="p">)</span> 
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="p">)</span><span class="w"> </span><span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Hij</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="p">)</span><span class="w"> </span><span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Hij</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Connector</span><span class="o">::</span><span class="n">MASS</span><span class="p">)</span><span class="w"> </span>
 
-<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">+=</span> <span class="n">Hij</span><span class="p">;</span>
-<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c2</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">+=</span> <span class="n">Hij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Hij</span><span class="p">;</span>
+<span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c2</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Hij</span><span class="p">;</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Finally, coupling between x and <span class="math notranslate nohighlight">\(\lambda\)</span></p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx_lambda</span><span class="p">)</span> <span class="o">-=</span> <span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="o">//</span> <span class="n">dF</span><span class="o">/</span><span class="n">dlambda</span>
-<span class="n">df</span><span class="p">(</span><span class="n">idx_lambda</span><span class="p">,</span> <span class="n">dc</span><span class="o">.</span><span class="n">c1</span><span class="o">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="o">//</span> <span class="n">dC</span><span class="o">/</span><span class="n">dx</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">(</span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">idx_lambda</span><span class="p">)</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w">  </span><span class="c1">// dF/dlambda</span>
+<span class="n">df</span><span class="p">(</span><span class="n">idx_lambda</span><span class="p">,</span><span class="w"> </span><span class="n">dc</span><span class="p">.</span><span class="n">c1</span><span class="p">.</span><span class="n">nr</span><span class="o">*</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w">  </span><span class="c1">// dC/dx</span>
 </pre></div>
 </div>
 </section>
