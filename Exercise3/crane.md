@@ -1,28 +1,73 @@
-Extensión del Ejercicio 3: Estructuras Mecánicas Complejas (La Grúa)ContenidoExtensión del Ejercicio 20.4.1P1: Generación Geométrica ProceduralP2: Modelado Físico y Justificación de Parámetros (Defensa)P3: Estabilidad Numérica y Configuración del SolverP4: Resultados y VisualizaciónExtensión del Ejercicio 20.4.1P1: Generación Geométrica ProceduralPara simular una estructura a gran escala como una grúa de construcción, definir manualmente las coordenadas de los nodos es propenso a errores. Implementamos un algoritmo de generación procedural en Python para construir la estructura reticular dinámicamente basándonos en los parámetros L (tamaño) y floors (altura).La geometría de la grúa se divide en dos secciones lógicas:La Torre: Una pila vertical de celdas cúbicas a lo largo del eje Z. Los nodos base ($z=0$) están anclados al suelo usando mss.add(Fix(...)).El Brazo (Pluma): Una extensión horizontal a lo largo del eje X desde la parte superior de la torre.Implementación de la Abstracción Estructural:Definimos una función auxiliar, add_beam, para abstraer la lógica de conexión. Esto permite cambiar modularmente entre elementos rígidos y elementos flexibles.def add_beam(mss, node1, node2, length, stiffness, use_constraint=True):
+### Q4: Experiments - Crane Structure and Vibration
+
+In this section, we build a complex mechanical structure (a crane) by using the Mass-Spring System combined with Lagrangian Constraints.
+
+1. **Model Construction Strategy**
+
+   We implemented a `build_crane` function in Python. The structure consists of two main types of connections:
+   * Rigid Beams: Modeled using `DistanceConstraint`. We want the frame of the crane to be rigid and not oscillate like jelly.
+   * Cables (Elastic): Modeled using `Spring`. We want to observe vibration when lifting a mass.
+
+   We defined a helper function to easily switch between these two types:
+
+```python
+def add_beam(mss, node1, node2, length, stiffness, use_constraint=True):
     if use_constraint:
-        # Imponer longitud rígida usando Multiplicadores de Lagrange (DAE)
-        # Modela vigas de acero estructural.
+        # Use Lagrangian constraint for rigid parts (Steel)
         dc = DistanceConstraint(node1, node2, length)
         mss.addDistanceConstraint(dc)
     else:
-        # Usar muelle elástico para estabilidad diagonal.
-        # Modela arriostramiento cruzado con cumplimiento finito.
+        # Use Spring for elastic parts (Cables/Rubber)
         mss.add(Spring(length, stiffness, (node1, node2)))
-P2: Modelado Físico y Justificación de ParámetrosRacional de Defensa:La selección de los parámetros físicos fue impulsada por las limitaciones del solucionador numérico y los requisitos de realismo físico.1. Estrategia de Modelado Híbrido (Restricciones vs. Muelles)Elección de Diseño: Usamos Restricciones de Distancia para vigas verticales/horizontales y Muelles para el arriostramiento diagonal cruzado.Justificación: Un cubo donde cada borde y diagonal es una restricción rígida está matemáticamente sobredeterminado. La matriz Jacobiana se vuelve deficiente en rango (singular), causando que el solucionador de Newton falle (Newton did not converge).Al modelar las diagonales como muelles, introducimos el cumplimiento necesario (grados de libertad) que permite al solucionador converger mientras se mantiene la estabilidad estructural contra fuerzas de corte.2. Ajuste de Rigidez ($k$)Fallo Inicial: Usar $k=100,000$ para las diagonales causó inestabilidad numérica. Un muelle rígido compite con restricciones de rigidez infinita, creando un "sistema rígido" que requiere pasos de tiempo infinitesimalmente pequeños.Valor Óptimo: Seleccionamos $k_{diagonals} = 5000.0$. Este valor es lo suficientemente alto para mantener la forma de la grúa pero lo suficientemente bajo para prevenir el mal condicionamiento de la matriz Jacobiana.Cables: Seleccionamos $k_{cables} = 3000.0$. Esta menor rigidez permite que la carga exhiba una oscilación armónica visible (vibración), cumpliendo con el requisito del ejercicio.3. Lógica de Posicionamiento de la CargaConsistencia Geométrica: La posición de la carga se calcula relativa al origen de la torre:$$x_{load} = L_{tower} + L_{arm\_length}$$Justificación: Una iteración anterior usó índices de bucle incorrectamente, generando la masa lejos de la punta del brazo. Esto creó un "efecto tirachinas" (energía potencial inicial masiva), resultando en una divergencia instantánea del solucionador. La lógica corregida asegura una tensión inicial cero.P3: Estabilidad Numérica y Configuración del SolverEl sistema es una Ecuación Diferencial-Algebraica (DAE) resuelta utilizando el método Generalized Alpha.Estrategia de Paso de TiempoEquilibrar la velocidad de simulación (reproducción) contra la precisión física (convergencia) es crítico.ConfiguraciónParámetrosResultadoAnálisisRápidadt=0.1, steps=10FalloEl solucionador de Newton divergió debido a un gran error de linealización.Lentadt=0.02, steps=100EstableFísicamente precisa pero visualmente "cámara lenta". Ineficiente para previsualización.Óptimadt=0.04, steps=50ÉxitoEl "Punto Dulce". Proporciona una visualización fluida de 25fps mientras mantiene un pequeño paso interno ($8 \times 10^{-4}s$) para la estabilidad.P4: Resultados y VisualizaciónLa simulación final demuestra un sistema de carga suspendida estable.Análisis Visual:Estructura: Representada por líneas naranjas (Restricciones). Mantienen su longitud perfectamente.Elasticidad: Representada por líneas cian (Muelles). La torre se dobla ligeramente hacia adelante, consistente con la mecánica estructural del mundo real bajo carga.Dinámica: La masa de carga rebota naturalmente, verificando la implementación del muelle.Video de Simulación:Haz clic aquí para ver el video de la simulaciónBucle de Simulación Optimizado:Para lograr una visualización fluida (reproducción tipo video) en Jupyter, eliminamos retrasos artificiales y optimizamos las actualizaciones de geometría:# Bucle de Simulación Final
-for i in range(400):
-    try:
-        # Simular 0.04s de física con 50 pasos internos
-        mss.simulate(0.04, 50) 
-        
-        # Actualizar posiciones de malla
-        for m, mesh in zip(mss.masses, masses_mesh):
-            mesh.position = tuple(m.pos)
-            
-        # Actualizar eficientemente líneas de geometría (Restricciones y Muelles)
-        # ... [Ver código fuente para lógica de actualización de geometría] ...
-        
-        sleep(0.001) # Rendimiento mínimo
-    except Exception as e:
-        print(f"Simulation stopped: {e}")
-        break
-Apéndice: Activos de VisualizaciónFigura 1: Diagrama de Estructura de la Grúa[Imagen de Diagrama de grúa de construcción]Figura 1: La estructura reticular mostrando vigas rígidas (naranja) y arriostramiento diagonal (cian).Figura 2: Oscilación de la CargaFigura 2: La masa de carga de 5kg suspendida por cables elásticos.
+```
+
+2. **Building the Geometry**
+
+The crane consists of a vertical tower (10 floors) and a horizontal arm (6 units). To ensure structural stability we added crossed diagonal supports to every face.
+
+① The tower loop:
+```python
+for i in range(floors):
+    # ... (node creation logic) ...
+    # connecting floors
+    add_beam(mss, c_curr, c_next, L, 0, use_constraint=True) #vertical union
+    add_beam(mss, c_next, c_next_neighbor, L, 0, use_constraint=True)  #horizontal union
+    
+    diag_len = math.sqrt(2) * L 
+    add_beam(mss, c_curr, c_next_neighbor, diag_len, stiffness_beam, use_constraint=False)  #diagonal (X shape) for stability
+```
+The stiffness for the structural parts is 0 because their rigidity will be actually being defined by the Lagrange Constraints, while for the elastic springs we fixed a value `stiffness_beam= 5000`. We coded the arm loop analougsly.
+
+② The Load and Cables:
+
+We attach a heavy mass ($m=5.0$) to the tip of the arm using elastic springs (stiffness_cable = 3000.0). This way we introduce the vibration.
+
+```python
+# Cables attached to the tip of the arm
+mss.add(Spring(dist_h, stiffness_cable, (tip_node_1, load_mass)))
+mss.add(Spring(dist_h, stiffness_cable, (tip_node_2, load_mass)))
+```
+
+3. **Simulation and Visualization**
+   
+To visualize the movement smoothly, we modified the simulation loop in the Jupyter Notebook. Since the code with the Lagrange Constraints is computationally heavy, we decouple the physics steps from the rendering steps using `steps_per_frame` so the computer do not struggle that much to calculate the physics and draw the crane quickly at the same time.
+
+```python
+steps_per_frame = 2  #render 1 frame every 2 physics calculations
+
+for i in range(1000):
+    mss.simulate(0.01, 2) 
+
+    if i % steps_per_frame == 0:
+        # we just actualise the graphic positions when we plot (1 over 2)
+        sleep(0.01)
+```
+
+4. **Result**
+
+The simulation shows the crane structure remaining rigid due to the DistanceConstraints (orange lines), while the load and arm bounce realistically due to the Springs (cyan lines).
+
+
+<video width="600" controls>
+  <source src="crane_simulation.mp4" type="video/mp4">
+</video>
